@@ -1,12 +1,11 @@
 {
-  "name": "template-svelte-ts",
-  "description": "Provides a bare bones Typescript template repo to get set up with using the the TyphonJS Runtime Library and Svelte.",
-  "license": "MIT",
+  "name": "foundry-summons",
   "private": true,
+  "license": "MIT",
   "type": "module",
-  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "author": "MrVauxs",
   "contributors": [
-    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
+    "MrVauxs"
   ],
   "imports": {
     "#runtime/*": "@typhonjs-fvtt/runtime/*",

@@ -1,23 +1,27 @@
 {
-  "id": "template-svelte-ts",
-  "title": "Template Svelte (TS)",
-  "description": "Provides a bare bones Typescript template repo to get set up with using the TyphonJS Runtime Library and Svelte.",
+  "id": "foundry-summons",
+  "title": "Foundry Summons",
+  "description": "A Summoning Module.",
   "authors": [
     {
-      "name": "Michael Leahy (TyphonJS) - MLeahy#4299",
-      "url": "https://www.typhonjs.io"
+      "discord": "MrVauxs#8622",
+      "email": "mrvauxs@gmail.com",
+      "ko-fi": "MrVauxs",
+      "name": "MrVauxs",
+      "patreon": "MrVauxs",
+      "twitter": "@ThatVauxs"
     }
   ],
-  "version": "0.0.0",
+  "version": "dev",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
   },
   "esmodules": [
-    "dist/template-svelte-ts.js"
+    "dist/foundry-summons.js"
   ],
   "styles": [
-    "dist/template-svelte-ts.css"
+    "dist/foundry-summons.css"
   ],
   "flags": {
     "hotReload": {
@@ -29,6 +33,15 @@
       ]
     }
   },
+  "relationships": {
+    "requires": [
+      {
+        "id": "sequencer",
+        "type": "module",
+        "manifest": "https://github.com/fantasycalendar/FoundryVTT-Sequencer/releases/latest/download/module.json"
+      }
+    ]
+  },
   "languages": [
     {
       "lang": "en",
@@ -36,13 +49,20 @@
       "path": "lang/en.json"
     }
   ],
-  "url": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts",
-  "readme": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/blob/master/README.md",
-  "bugs": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/issues",
-  "changelog": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/releases/latest/",
-  "manifest": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/releases/latest/download/module.json",
-  "download": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/releases/download/0.0.0/module.zip",
-  "socket": false,
+  "media": [
+    {
+      "type": "setup",
+      "name": "Setup Screen",
+      "url": "modules/foundry-summons/assets/setup.webp"
+    }
+  ],
+  "readme": "https://github.com/mrvauxs/foundry-summons/blob/master/README.md",
+  "url": "https://github.com/mrvauxs/foundry-summons",
+  "bugs": "https://github.com/mrvauxs/foundry-summons/issues",
+  "changelog": "https://github.com/mrvauxs/foundry-summons/releases/latest/",
+  "manifest": "https://github.com/mrvauxs/foundry-summons/releases/latest/download/module.json",
+  "download": "https://github.com/mrvauxs/foundry-summons/releases/latest/download/module.zip",
+  "socket": true,
   "protected": false,
   "coreTranslation": false,
   "library": false

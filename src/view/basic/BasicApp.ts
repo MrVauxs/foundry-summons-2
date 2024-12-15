@@ -18,7 +18,7 @@ class BasicApp extends SvelteApplication<BasicApp.Options>
    {
       return foundry.utils.mergeObject<SvelteApp.Options, Partial<BasicApp.Options>>(super.defaultOptions, {
          extra: true,   // Typed extra option from `BasicApp.Options` below.
-         id: 'template-svelte-ts',
+         id: 'foundry-summons',
          resizable: true,
          minimizable: true,
          width: '25%',  // Just showing off you can use browser window percentages too!
