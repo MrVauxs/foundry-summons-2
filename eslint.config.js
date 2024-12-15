@@ -32,6 +32,22 @@ export default antfu(
 			'unused-imports/no-unused-vars': 'warn',
 			'node/prefer-global/process': 'off',
 			'svelte/valid-compile': 'warn',
+			'ts/no-shadow': ['error', {
+				builtinGlobals: true,
+				hoist: 'all',
+				allow: [
+					'document',
+					'event',
+					'name',
+					'parent',
+					'status',
+					'top',
+				],
+			}],
+		},
+
+		env: {
+			jquery: true,
 		},
 
 		ignores: [],

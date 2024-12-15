@@ -22,11 +22,11 @@
 <!-- ApplicationShell exports `elementRoot` which is the outer application shell element -->
 <ApplicationShell bind:elementRoot>
 	<main>
-		<h1>Basic Application</h1>
+		<h1 class='text-red-500'>Basic Application</h1>
 	</main>
 </ApplicationShell>
 
-<style lang='scss'>
+<style lang='postcss'>
    main {
       text-align: center;
       display: flex;

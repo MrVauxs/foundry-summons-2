@@ -4,18 +4,21 @@
 		"baseUrl": ".",
 		"module": "ES2022",
 		"moduleResolution": "Bundler",
-
-		"types": ["foundry-pf2e/foundry"],
-
+		"types": [
+			"foundry-pf2e/foundry",
+			"sequencer"
+		],
 		"strict": false,
 		"strictNullChecks": true,
 		"sourceMap": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-
 		"verbatimModuleSyntax": true
 	},
-
-	"include": ["src/**/*"],
-	"exclude": ["node_modules/*"]
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules/*"
+	]
 }

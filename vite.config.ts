@@ -1,40 +1,21 @@
-import {
-	existsSync,
-	mkdir,
-	writeFileSync,
-} from 'node:fs';
 /* eslint-env node */
+import { existsSync, mkdir, writeFileSync } from 'node:fs';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import {
-	postcssConfig,
-	terserConfig,
-} from '@typhonjs-fvtt/runtime/rollup';
+import { terserConfig } from '@typhonjs-fvtt/runtime/rollup';
+import autoprefixer from 'autoprefixer';
+import minify from 'postcss-minify';
 import { sveltePreprocess } from 'svelte-preprocess';
+import tailwindcss from 'tailwindcss';
+import nesting from 'tailwindcss/nesting';
 import { defineConfig } from 'vite';
 import moduleJSON from './module.json' with { type: 'json' };
 
-// ATTENTION!
-// Please modify the below s_SVELTE_HASH_ID variable appropriately.
-
 const s_PACKAGE_ID = `modules/${moduleJSON.id}`;
-
-// A short additional string to add to Svelte CSS hash values to make yours unique. This reduces the amount of
-// duplicated framework CSS overlap between many TRL packages enabled on Foundry VTT at the same time. 'tst' is chosen
-// by shortening 'foundry-summons'.
-const s_SVELTE_HASH_ID = 'tst';
-
-const s_COMPRESS = false; // Set to true to compress the module bundle.
-const s_SOURCEMAPS = true; // Generate sourcemaps for the bundle (recommended).
+const s_SVELTE_HASH_ID = 'fsum';
 
 export default defineConfig(({ mode }) => {
-	// Provides a custom hash adding the string defined in `s_SVELTE_HASH_ID` to scoped Svelte styles;
-	// This is reasonable to do as the framework styles in TRL compiled across `n` different packages will
-	// be the same. Slightly modifying the hash ensures that your package has uniquely scoped styles for all
-	// TRL components and makes it easier to review styles in the browser debugger.
 	const compilerOptions = mode === 'production'
-		? {
-				cssHash: ({ hash, css }) => `svelte-${s_SVELTE_HASH_ID}-${hash(css)}`,
-			}
+		? { cssHash: ({ hash, css }) => `svelte-${s_SVELTE_HASH_ID}-${hash(css)}` }
 		: {};
 
 	return {
@@ -52,19 +33,13 @@ export default defineConfig(({ mode }) => {
 		},
 
 		css: {
-			// Creates a standard configuration for PostCSS with autoprefixer & postcss-preset-env.
-			postcss: postcssConfig({ compress: s_COMPRESS, sourceMap: s_SOURCEMAPS }),
+			postcss: {
+				inject: false,
+				sourceMap: true,
+				plugins: [nesting, tailwindcss, autoprefixer, minify],
+			},
 		},
 
-		// About server options:
-		// - Set to `open` to boolean `false` to not open a browser window automatically. This is useful if you set up a
-		// debugger instance in your IDE and launch it with the URL: 'http://localhost:30001/game'.
-		//
-		// - The top proxy entry redirects requests under the module path for `style.css` and following standard static
-		// directories: `assets`, `lang`, and `packs` and will pull those resources from the main Foundry / 30000 server.
-		// This is necessary to reference the dev resources as the root is `/src` and there is no public / static
-		// resources served with this particular Vite configuration. Modify the proxy rule as necessary for your
-		// static resources / project.
 		server: {
 			port: 30001,
 			open: '/game',
@@ -88,11 +63,11 @@ export default defineConfig(({ mode }) => {
 		build: {
 			outDir: '../dist',
 			emptyOutDir: false,
-			sourcemap: s_SOURCEMAPS,
+			sourcemap: true,
 			brotliSize: true,
-			minify: s_COMPRESS ? 'terser' : false,
+			minify: 'terser',
 			target: ['es2022'],
-			terserOptions: s_COMPRESS ? { ...terserConfig(), ecma: 2022 } : void 0,
+			terserOptions: { ...terserConfig(), ecma: 2022 },
 			lib: {
 				entry: './index.ts',
 				formats: ['es'],

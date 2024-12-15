@@ -12,10 +12,11 @@ class BasicApp extends SvelteApplication<BasicAppOptions> {
 			minimizable: true,
 			width: '25%',
 			top: '10%',
-			left: '10%',
+			left: '37.5%',
 
 			id: 'foundry-summons',
 			title: 'foundry-summons.title',
+			classes: ['fsum'],
 
 			svelte: {
 				class: BasicAppShell,
