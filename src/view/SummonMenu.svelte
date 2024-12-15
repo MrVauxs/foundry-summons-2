@@ -15,7 +15,7 @@
 			type: 'search',
 			id: 'search',
 			function: (npcs: Actor[], search: string) =>
-				npcs.filter(x => x.name.includes(search || '')),
+				npcs.filter(x => x.name.includes((search || '').toLowerCase())),
 		},
 	]);
 
