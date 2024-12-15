@@ -1,32 +1,36 @@
 {
-  "name": "foundry-summons",
-  "private": true,
-  "license": "MIT",
-  "type": "module",
-  "author": "MrVauxs",
-  "contributors": [
-    "MrVauxs"
-  ],
-  "imports": {
-    "#runtime/*": "@typhonjs-fvtt/runtime/*",
-    "#standard/*": "@typhonjs-fvtt/standard/*"
-  },
-  "dependencies": {
-    "@typhonjs-fvtt/runtime": "^0.2.0-next.6",
-    "@typhonjs-fvtt/standard": "^0.2.0-next.3",
-    "svelte": "^4.2.19"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.2",
-    "foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
-    "typescript": "^5.7.2"
-  },
-  "browserslist": [
-    ">5%",
-    "not IE 11"
-  ],
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite"
-  }
+	"name": "foundry-summons",
+	"type": "module",
+	"private": true,
+	"author": "MrVauxs",
+	"contributors": [
+		"MrVauxs"
+	],
+	"license": "MIT",
+	"imports": {
+		"#runtime/*": "@typhonjs-fvtt/runtime/*",
+		"#standard/*": "@typhonjs-fvtt/standard/*"
+	},
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --fix --cache"
+	},
+	"dependencies": {
+		"@typhonjs-fvtt/runtime": "^0.2.0-next.6",
+		"@typhonjs-fvtt/standard": "^0.2.0-next.3",
+		"svelte": "^4.2.19"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^3.12.0",
+		"@types/node": "^22.10.2",
+		"eslint-plugin-svelte": "^2.46.1",
+		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
+		"typescript": "^5.7.2"
+	},
+	"browserslist": [
+		">5%",
+		"not IE 11"
+	]
 }

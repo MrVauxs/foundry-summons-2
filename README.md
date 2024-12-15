@@ -1,4 +1,5 @@
 # Due to V12 and Warpgate's disappearance, this module currently does not work. It will be rewritten from scratch eventually, but other projects (such as a replacement to PF2e Animations) have taken priority.
+
 # Foundry Summons
 
 ![](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Ffoundry-summons%2Fmain%2Fmodule.json)
@@ -21,4 +22,3 @@ Built in [Svelte](https://svelte.dev/) using [TyphonJS Framework](https://github
 [![EskieMoh's Tutorial Video](http://img.youtube.com/vi/vngjefDFdDY/0.jpg)](http://www.youtube.com/watch?v=vngjefDFdDY)
 
 https://github.com/MrVauxs/foundry-summons/assets/32039708/baa11499-8999-49d8-99a5-1ca2f2f79b3d
-

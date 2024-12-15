@@ -1,48 +1,36 @@
-import {
-   SvelteApplication,
-   type SvelteApp }     from '#runtime/svelte/application';
+import { type SvelteApp, SvelteApplication } from '#runtime/svelte/application';
+import BasicAppShell from './BasicAppShell.svelte';
 
-import BasicAppShell    from './BasicAppShell.svelte';
+class BasicApp extends SvelteApplication<BasicAppOptions> {
+	constructor(options?: Partial<BasicAppOptions>) {
+		super(options);
+	}
 
-// Make sure to check out the `BasicApp` namespace below on defining custom options and interface for the `#external`
-// context.
+	static get defaultOptions(): BasicAppOptions {
+		return foundry.utils.mergeObject<SvelteApp.Options, Partial<BasicAppOptions>>(super.defaultOptions, {
+			resizable: true,
+			minimizable: true,
+			width: '25%',
+			top: '10%',
+			left: '10%',
 
-class BasicApp extends SvelteApplication<BasicApp.Options>
-{
-   constructor(options?: Partial<BasicApp.Options>)
-   {
-      super(options);
-   }
+			id: 'foundry-summons',
+			title: 'foundry-summons.title',
 
-   static get defaultOptions(): BasicApp.Options
-   {
-      return foundry.utils.mergeObject<SvelteApp.Options, Partial<BasicApp.Options>>(super.defaultOptions, {
-         extra: true,   // Typed extra option from `BasicApp.Options` below.
-         id: 'foundry-summons',
-         resizable: true,
-         minimizable: true,
-         width: '25%',  // Just showing off you can use browser window percentages too!
-         top: '10%',
+			svelte: {
+				class: BasicAppShell,
+				target: document.body,
+			},
 
-         title: 'TemplateTS.title',
-
-         svelte: {
-            class: BasicAppShell,
-            target: document.body,
-         }
-      });
-   }
+			extra: true, // Typed extra option from `BasicApp.Options` below.
+		});
+	}
 }
 
-declare namespace BasicApp {
-   /** Extends the SvelteApp `#external` types specifying a concrete application */
-   export type External = SvelteApp.Context.External<BasicApp>;
-
-   /** Extended options that you can define. */
-   export interface Options extends SvelteApp.Options {
-      /** An example of defining additional options */
-      extra?: boolean;
-   }
+export type BasicAppExternal = SvelteApp.Context.External<BasicApp>;
+export interface BasicAppOptions extends SvelteApp.Options {
+	/** An example of defining additional options */
+	extra?: boolean;
 }
 
-export { BasicApp }
+export { BasicApp };

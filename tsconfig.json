@@ -1,22 +1,21 @@
 {
-  "compilerOptions": {
-    "module": "ES2022",
-    "moduleResolution": "Bundler",
-    "target": "ES2022",
-    "baseUrl": ".",
+	"compilerOptions": {
+		"target": "ES2022",
+		"baseUrl": ".",
+		"module": "ES2022",
+		"moduleResolution": "Bundler",
 
-    "types": ["foundry-pf2e/foundry"],
+		"types": ["foundry-pf2e/foundry"],
 
-    "isolatedModules": true,
-    "sourceMap": true,
+		"strict": false,
+		"strictNullChecks": true,
+		"sourceMap": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
 
-    "strict": false,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
+		"verbatimModuleSyntax": true
+	},
 
-    "verbatimModuleSyntax": true
-  },
-
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/*"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules/*"]
 }
