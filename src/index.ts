@@ -1,7 +1,14 @@
-import { BasicApp } from './view/basic/BasicApp';
+import { BasicApp } from './view/SummonMenu';
 import './app.postcss';
 
-// Creates and renders BasicApp on the Foundry `ready` hook.
+const foundrySummons = {
+	open: () => new BasicApp().render(true, { focus: true }),
+};
+
 Hooks.on('ready', () => {
-	new BasicApp().render(true, { focus: true });
+	window.foundrySummons = foundrySummons;
 });
+
+declare global {
+	interface Window { foundrySummons: typeof foundrySummons }
+}
