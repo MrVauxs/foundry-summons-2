@@ -1,0 +1,49 @@
+{
+  "id": "template-svelte-ts",
+  "title": "Template Svelte (TS)",
+  "description": "Provides a bare bones Typescript template repo to get set up with using the TyphonJS Runtime Library and Svelte.",
+  "authors": [
+    {
+      "name": "Michael Leahy (TyphonJS) - MLeahy#4299",
+      "url": "https://www.typhonjs.io"
+    }
+  ],
+  "version": "0.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "esmodules": [
+    "dist/template-svelte-ts.js"
+  ],
+  "styles": [
+    "dist/template-svelte-ts.css"
+  ],
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "json"
+      ],
+      "paths": [
+        "lang"
+      ]
+    }
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "url": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts",
+  "readme": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/blob/master/README.md",
+  "bugs": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/issues",
+  "changelog": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/releases/latest/",
+  "manifest": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/releases/latest/download/module.json",
+  "download": "https://github.com/typhonjs-fvtt-demo/template-svelte-ts/releases/download/0.0.0/module.zip",
+  "socket": false,
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
+}

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "baseUrl": ".",
+
+    "types": ["foundry-pf2e/foundry"],
+
+    "isolatedModules": true,
+    "sourceMap": true,
+
+    "strict": false,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "verbatimModuleSyntax": true
+  },
+
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/*"]
+}

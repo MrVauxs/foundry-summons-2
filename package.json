@@ -1,0 +1,33 @@
+{
+  "name": "template-svelte-ts",
+  "description": "Provides a bare bones Typescript template repo to get set up with using the the TyphonJS Runtime Library and Svelte.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "contributors": [
+    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
+  ],
+  "imports": {
+    "#runtime/*": "@typhonjs-fvtt/runtime/*",
+    "#standard/*": "@typhonjs-fvtt/standard/*"
+  },
+  "dependencies": {
+    "@typhonjs-fvtt/runtime": "^0.2.0-next.6",
+    "@typhonjs-fvtt/standard": "^0.2.0-next.3",
+    "svelte": "^4.2.19"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
+    "typescript": "^5.7.2"
+  },
+  "browserslist": [
+    ">5%",
+    "not IE 11"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  }
+}
