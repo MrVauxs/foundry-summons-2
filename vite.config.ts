@@ -9,6 +9,7 @@ import tailwindcss from 'tailwindcss';
 import nesting from 'tailwindcss/nesting';
 import { defineConfig } from 'vite';
 import moduleJSON from './module.json' with { type: 'json' };
+import PrefixWrap from 'postcss-prefixwrap';
 
 const s_PACKAGE_ID = `modules/${moduleJSON.id}`;
 const s_SVELTE_HASH_ID = 'fsum';
@@ -36,7 +37,13 @@ export default defineConfig(({ mode }) => {
 			postcss: {
 				inject: false,
 				sourceMap: true,
-				plugins: [nesting, tailwindcss, autoprefixer, minify],
+				plugins: [
+					nesting,
+					tailwindcss,
+					autoprefixer,
+					PrefixWrap('.fsum', { ignoredSelectors: ['.fsum'] }),
+					minify,
+				],
 			},
 		},
 

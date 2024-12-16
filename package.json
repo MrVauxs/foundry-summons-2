@@ -33,9 +33,9 @@
 		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
 		"postcss": "^8.4.49",
 		"postcss-minify": "^1.1.0",
+		"postcss-prefixwrap": "1.53.0",
 		"sequencer": "github:fantasycalendar/FoundryVTT-Sequencer",
 		"tailwindcss": "^3.4.16",
-		"tailwindcss-scoped-preflight": "^3.4.10",
 		"typescript": "^5.7.2"
 	},
 	"browserslist": [

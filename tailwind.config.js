@@ -1,5 +1,3 @@
-// import { isolateInsideOfContainer, scopedPreflightStyles } from 'tailwindcss-scoped-preflight';
-
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -14,7 +12,4 @@ export default {
 		preflight: false,
 	},
 	important: '.fsum',
-	plugins: [
-		// scopedPreflightStyles({ isolationStrategy: isolateInsideOfContainer('.fsum') }),
-	],
 };
