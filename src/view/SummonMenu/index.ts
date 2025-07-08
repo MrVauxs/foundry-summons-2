@@ -6,23 +6,27 @@ import Root from "./app.svelte";
 
 interface summonOptions {
 	toggles?: {
+		id: string;
 		name: string;
-		description: string;
-		func: (actor: CompendiumIndexData) => boolean;
-		indexedFields: string[];
+		description?: string;
+		func: (actor: CompendiumIndexData, input: boolean) => boolean;
+		indexedFields?: string[];
 	}[];
 	searches?: {
-		name: string;
-		description: string;
+		id: string;
+		name?: string;
+		description?: string;
+		placeholder?: string;
 		func: (actor: CompendiumIndexData, input: string) => boolean;
-		indexedFields: string[];
+		indexedFields?: string[];
 	}[];
 	dropdowns?: {
-		name: string;
-		description: string;
+		id: string;
+		name?: string;
+		description?: string;
 		options: { label: string; value: any }[];
 		func: (actor: CompendiumIndexData, input: any) => boolean;
-		indexedFields: string[];
+		indexedFields?: string[];
 	}[];
 	packs?: string[];
 }
@@ -53,6 +57,7 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 	constructor(options: DeepPartial<ApplicationConfiguration> & { summonOptions?: summonOptions }) {
 		super(options);
 		this.summonOptions = options?.summonOptions || {};
+		this.summonOptions.packs ??= game.packs.contents.filter(x => x.metadata.type === "Actor").map(x => x.metadata.id);
 	}
 
 	protected override async _prepareContext(): Promise<SummonMenuContext> {

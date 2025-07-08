@@ -1,3 +1,10 @@
 .foundry-summons .window-content {
 	padding: 0.5rem;
 }
+
+:root {
+	--fsum-primary: #1ebcaa20;
+	--fsum-secondary: #4760da20;
+	--fsum-primary-highlight: #1ebcaa90;
+	--fsum-secondary-highlight: #4760da90;
+}
