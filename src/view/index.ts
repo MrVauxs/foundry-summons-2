@@ -1,5 +1,7 @@
-import moduleJSON from "moduleJSON" with { type: "json" };
+import { SummonMenu } from "./SummonMenu";
+
+window.foundrySummons = SummonMenu;
 
 Hooks.on("ready", () => {
-	ui.notifications.info(`Running ${moduleJSON.id}!`);
+	new SummonMenu().render({ force: true });
 });

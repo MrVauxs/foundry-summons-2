@@ -1,6 +1,8 @@
 import type { Plugin, UserConfig } from "vite";
 import { existsSync, mkdir, writeFileSync } from "node:fs";
 import path from "node:path";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import tailwindcss from "@tailwindcss/vite";
 import autoprefixer from "autoprefixer";
 import vttSync from "foundryvtt-sync";
 import postcssPresetEnv from "postcss-preset-env";
@@ -8,7 +10,6 @@ import { defineConfig } from "vite";
 import moduleJSON from "./module.json" with { type: "json" };
 import { transformEntry } from "./scripts/transformer.mjs";
 
-// import tailwindcss from "@tailwindcss/vite";
 // import PrefixWrap from "postcss-prefixwrap";
 // import PostCSSReplace from "postcss-replace";
 
@@ -30,6 +31,7 @@ const postcss = {
 				blacklist: ["globals.css"],
 				nested: "&",
 			}),
+			// CSS Replacement (ex. styling specific Compendiums)
 			PostCSSReplace({
 				pattern: /\{\{\s?(\S+?)\s?\}\}/g,
 				commentsOnly: false,
@@ -41,7 +43,7 @@ const postcss = {
 	],
 };
 
-export default defineConfig(({ mode: _mode }) => {
+export default defineConfig(({ mode }) => {
 	return {
 		root: "src/", // Source location / esbuild root.
 		base: `/${modulePath}/dist`, // Base module path that 30001 / served dev directory.
@@ -57,7 +59,7 @@ export default defineConfig(({ mode: _mode }) => {
 		},
 
 		esbuild: {
-			target: ["es2022"],
+			target: ["es2024"],
 		},
 
 		css: { postcss },
@@ -87,7 +89,7 @@ export default defineConfig(({ mode: _mode }) => {
 			emptyOutDir: false,
 			sourcemap: true,
 			minify: "terser",
-			target: ["es2020"],
+			target: ["es2024"],
 			terserOptions: {
 				compress: {
 					passes: 3,
@@ -98,7 +100,7 @@ export default defineConfig(({ mode: _mode }) => {
 					keep_fnames: true,
 				},
 				module: true,
-				ecma: 2020,
+				ecma: 2024,
 			},
 			lib: {
 				entry,
@@ -116,12 +118,13 @@ export default defineConfig(({ mode: _mode }) => {
 
 		optimizeDeps: {
 			esbuildOptions: {
-				target: "es2022",
+				target: "es2024",
 			},
 		},
 
 		plugins: [
-			// tailwindcss(),
+			svelte({ configFile: "../svelte.config.js" }),
+			tailwindcss(),
 			vttSync(moduleJSON, { transformer: transformEntry }) as Plugin[],
 			{
 				name: "create-dist-files",

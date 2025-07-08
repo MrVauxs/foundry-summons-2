@@ -1,6 +1,6 @@
 {
-	"id": "module-template",
-	"title": "Example Title",
+	"id": "foundry-summons",
+	"title": "Foundry Summons",
 	"description": "",
 	"authors": [
 		{
@@ -14,71 +14,21 @@
 	"version": "dev",
 	"compatibility": {
 		"minimum": "12",
-		"verified": "12"
+		"verified": "13"
 	},
 	"esmodules": [
-		"dist/module-template.js"
+		"dist/foundry-summons.js"
 	],
 	"styles": [
-		"dist/module-template.css"
+		"dist/foundry-summons.css"
 	],
-	"relationships": {
-		"systems": [
-			{
-				"id": "pf2e",
-				"type": "system",
-				"manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json",
-				"compatibility": {
-					"minimum": "6.11.0"
-				}
-			}
-		]
-	},
-	"packs": [
-		{
-			"label": "Player Options",
-			"name": "items",
-			"banner": "modules/module-template/assets/banners/part1.webp",
-			"path": "packs/items",
-			"system": "pf2e",
-			"type": "Item"
-		},
-		{
-			"label": "Journals",
-			"name": "journals",
-			"banner": "modules/module-template/assets/banners/part2.webp",
-			"path": "packs/journals",
-			"system": "pf2e",
-			"type": "JournalEntry"
-		},
-		{
-			"label": "Bestiary",
-			"name": "actors",
-			"banner": "modules/module-template/assets/banners/part3.webp",
-			"path": "packs/actors",
-			"system": "pf2e",
-			"type": "Actor",
-			"ownership": {
-				"PLAYER": "OBSERVER",
-				"ASSISTANT": "OWNER"
-			}
-		}
-	],
-	"packFolders": [
-		{
-			"name": "module-template",
-			"color": "#00000f",
-			"sorting": "m",
-			"packs": [
-				"items",
-				"journals",
-				"actors"
-			]
-		}
-	],
+	"relationships": {},
+	"packs": [],
+	"packFolders": [],
 	"flags": {
 		"css": {
-			"id": ""
+			"shorthand": "fsum",
+			"id": "foundry-summons"
 		},
 		"hotReload": {
 			"extensions": [
@@ -94,10 +44,10 @@
 		{
 			"auto": true,
 			"type": "setup",
-			"url": "modules/module-template/assets/setup.webp"
+			"url": "modules/foundry-summons/assets/setup.png"
 		}
 	],
-	"bugs": "https://github.com/Loot-Foundry/loot-tavern-content",
+	"bugs": "https://github.com/MrVauxs/foundry-summons-2",
 	"manifest": "replaced in production",
 	"download": "replaced in production"
 }
