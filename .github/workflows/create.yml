@@ -1,0 +1,64 @@
+name: Initialize Template
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Module Title
+        required: true
+        type: string
+      color:
+        description: Compendium Color
+        required: true
+        type: string
+
+jobs:
+  init:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    env:
+      GITHUB_SHA: ${{ github.sha }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Random Hash
+        id: hash
+        run: |
+          HASH=$(LC_CTYPE=C tr -d -c '[:alnum:]' </dev/urandom | head -c 20)
+          echo "result=$HASH" >> "$GITHUB_OUTPUT"
+
+          # Replacers
+      - name: Replace ID
+        uses: richardrigutins/replace-in-files@v2
+        with:
+          files: module.json
+          search-text: module-template
+          replacement-text: ${{ github.event.repository.name }}
+
+      - name: Replace Title
+        uses: richardrigutins/replace-in-files@v2
+        with:
+          files: module.json
+          search-text: Example Title
+          replacement-text: ${{ inputs.name }}
+
+      - name: Replace Hash
+        uses: richardrigutins/replace-in-files@v2
+        if: steps.hash.outcome == 'success'
+        with:
+          files: module.json
+          search-text: randomHash
+          replacement-text: ${{ steps.hash.outputs.result }}
+
+      - name: Replace Color
+        uses: richardrigutins/replace-in-files@v2
+        with:
+          files: module.json
+          search-text: "#00000f"
+          replacement-text: ${{ inputs.name }}
+
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v9

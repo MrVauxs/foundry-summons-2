@@ -1,0 +1,40 @@
+{
+	"name": "vauxs-module-template",
+	"type": "module",
+	"private": true,
+	"license": "MIT",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
+		"extract": "node scripts/extract.mjs && eslint ./data --fix",
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --fix --cache",
+		"link": "node scripts/link.mjs"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^4.1.1",
+		"@foundryvtt/foundryvtt-cli": "^1.0.4",
+		"@tailwindcss/vite": "^4.0.3",
+		"@types/jquery": "^3.5.32",
+		"autoprefixer": "^10.4.20",
+		"chalk": "^5.4.1",
+		"cssnano": "^7.0.6",
+		"eslint": "^9.20.1",
+		"eslint-plugin-antfu": "^3.0.0",
+		"eslint-plugin-format": "^1.0.1",
+		"foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e",
+		"foundryvtt-sync": "github:MrVauxs/FoundryVTT-Sync",
+		"postcss-prefixwrap": "^1.54.0",
+		"postcss-preset-env": "^10.1.4",
+		"postcss-replace": "^2.0.1",
+		"postcss-simple-vars": "^7.0.1",
+		"prompts": "^2.4.2",
+		"remeda": "^2.20.1",
+		"tailwindcss": "^4.0.3",
+		"typescript": "^5.7.3"
+	},
+	"browserslist": [
+		">5%",
+		"not IE 11"
+	]
+}

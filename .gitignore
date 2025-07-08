@@ -1,0 +1,11 @@
+.idea
+.DS_Store
+.vite-cache/
+.vscode/**/*
+!.vscode/extensions.json
+dist/
+node_modules/
+packs*
+.eslintcache
+data/**/_deleted
+*.timestamp*

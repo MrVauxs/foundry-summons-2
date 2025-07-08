@@ -1,0 +1,4 @@
+1. Resize the cover image into a 600px by width, and a height divisible by 150px, preferably by an amount equal to your compendiums (150 for 1, 300 for 2, 450 for 3, 600 for 4, 750 for 5, etc.)
+2. Cut the cover image into the 600x150 banners. You can use https://ezgif.com/sprite-cutter for this.
+3. Preferably convert them into an efficient format like webp.
+4. Assign these images to your compendiums module.json. Make sure they are in the right order or you will get a mismatched image.
