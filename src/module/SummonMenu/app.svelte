@@ -141,7 +141,7 @@
 		bottom: 0;
 		margin-top: auto;
 		font-size: 0.75rem;
-		text-align: right;
+		text-align: center;
 		width: 100%;
 	}
 
