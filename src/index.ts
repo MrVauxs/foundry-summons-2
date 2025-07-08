@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { pick } from "./module/SummonFunc";
 import { SummonMenu } from "./module/SummonMenu";
 import "./styles/main.css";

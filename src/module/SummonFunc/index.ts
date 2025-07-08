@@ -40,6 +40,7 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 
 	if (!crosshair) throw console.error("Crosshair cancelled, exiting summoning.");
 
+	// @ts-expect-error Lack of tcal types
 	const summonedActor = await game.tcal.importTransientActor(actor.uuid, {}, updateData) as ActorPF2e;
 
 	const offset = (canvas.scene?.grid.size ?? 200) / 2;

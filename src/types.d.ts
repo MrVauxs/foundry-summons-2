@@ -1,4 +1,4 @@
-import type { ActorPF2e, TokenDocumentPF2e } from "foundry-pf2e";
+import type { pick } from "./module/SummonFunc";
 import type { SummonMenu } from "./module/SummonMenu";
 
 declare module "vite/types/customEvent.d.ts" {
@@ -15,7 +15,7 @@ declare global {
 		foundrySync: Record<string, () => void>;
 		foundrySummons: {
 			SummonMenu: typeof SummonMenu;
-			pick: (actor: ActorPF2e) => Promise<TokenDocumentPF2e>;
+			pick: typeof pick;
 		};
 	}
 }
