@@ -22,7 +22,18 @@
 	"styles": [
 		"dist/foundry-summons.css"
 	],
-	"relationships": {},
+	"relationships": {
+		"requires": [
+			{
+				"id": "tcal",
+				"type": "module",
+				"manifest": "https://github.com/ddbrown30/tcal/releases/latest/download/module.json",
+				"compatibility": {
+					"minimum": "0.3.0"
+				}
+			}
+		]
+	},
 	"packs": [],
 	"packFolders": [],
 	"flags": {
