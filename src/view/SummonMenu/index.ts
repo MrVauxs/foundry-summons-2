@@ -8,7 +8,7 @@ interface summonOptions {
 }
 
 interface SummonMenuContext extends SvelteApplicationRenderContext {
-	state: SummonMenuState;
+	data: SummonMenuState;
 }
 
 interface SummonMenuState {
@@ -38,7 +38,7 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 	protected override async _prepareContext(): Promise<SummonMenuContext> {
 		return {
 			foundryApp: this,
-			state: {
+			data: {
 				options: this.summonOptions,
 			},
 		};
@@ -58,8 +58,7 @@ if (import.meta.hot) {
 
 		for (const [_id, docClass] of foundry.applications.instances) {
 			if (docClass.constructor.name === SummonMenu.name) {
-				// @ts-expect-error We added the function.
-				docClass.deleteSelf();
+				await docClass.close();
 				reopenedDocuments.push(docClass as SummonMenu);
 			};
 		}

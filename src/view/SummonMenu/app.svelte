@@ -1,4 +1,7 @@
 <script lang="ts">
+	let { data, foundryApp } = $props();
+
+	console.log(data, foundryApp);
 </script>
 
 <article class="root">

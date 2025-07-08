@@ -5,7 +5,7 @@ import { mount, unmount } from "svelte";
 
 interface SvelteApplicationRenderContext extends ApplicationRenderContext {
 	/** State data tracked by the root component: objects herein must be plain object. */
-	state: object;
+	data: object;
 	/** This application instance */
 	foundryApp: SvelteApplication;
 }
@@ -39,7 +39,7 @@ function SvelteApplicationMixin<
 			content: HTMLElement,
 			options: ApplicationRenderOptions,
 		): void {
-			Object.assign(this.$state, result.state);
+			Object.assign(this.$state, result.data);
 			if (options.isFirstRender) {
 				this.#mount = mount(
 					this.root,
@@ -57,10 +57,6 @@ function SvelteApplicationMixin<
 		protected override _onClose(options: ApplicationClosingOptions): void {
 			super._onClose(options);
 			unmount(this.#mount);
-		}
-
-		async deleteSelf(): Promise<void> {
-			await this.close();
 		}
 	}
 
