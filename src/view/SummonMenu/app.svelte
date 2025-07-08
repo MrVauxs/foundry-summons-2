@@ -102,7 +102,7 @@
 					<div class="option border hover" style:height={"28px"}>
 						<svelte:boundary>
 							{#snippet failed()}
-								Failed to render {actor?.name ?? "???"} actor as an entry. See the console for details.
+								Errored on {actor?.name ?? "???"}. See the console for details.
 							{/snippet}
 
 							<div>{actor.name}</div>
