@@ -41,13 +41,26 @@ function SvelteApplicationMixin<
 		): void {
 			Object.assign(this.$state, result.state);
 			if (options.isFirstRender) {
-				this.#mount = mount(this.root, { target: content, props: { ...result, state: this.$state } });
+				this.#mount = mount(
+					this.root,
+					{
+						target: content,
+						props: {
+							...result,
+							state: this.$state,
+						},
+					},
+				);
 			}
 		}
 
 		protected override _onClose(options: ApplicationClosingOptions): void {
 			super._onClose(options);
 			unmount(this.#mount);
+		}
+
+		async deleteSelf(): Promise<void> {
+			await this.close();
 		}
 	}
 
