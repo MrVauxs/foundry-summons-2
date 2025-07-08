@@ -1,20 +1,23 @@
 <script lang="ts">
-	let prop = $state("");
 </script>
 
-<div class="something-blue">
-	Hi {prop}!
-	<p class="red fsum-text-xl fsum-font-black"> I am red </p>
-	<input type="text" bind:value={prop} placeholder="reactive typing!" />
-
-	<button> Default style buttons! </button>
-</div>
+<article class="root">
+	<aside class="sidebar"> aside </aside>
+	<article class="main"> a </article>
+</article>
 
 <style lang="postcss">
-	.something-blue {
-		color: blue;
+	.root {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
 	}
-	.red {
-		color: red;
+
+	.sidebar {
+
+	}
+
+	.main {
+
 	}
 </style>
