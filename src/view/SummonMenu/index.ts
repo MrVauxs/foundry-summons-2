@@ -1,13 +1,33 @@
 import type { SvelteApplicationRenderContext } from "$lib/SvelteMixin.svelte";
 import type { ApplicationConfiguration } from "foundry-pf2e/foundry/client/applications/_types.mjs";
+import type { CompendiumIndexData } from "foundry-pf2e/foundry/client/documents/collections/compendium-collection.mjs";
 import { SvelteApplicationMixin } from "$lib/SvelteMixin.svelte";
 import Root from "./app.svelte";
 
 interface summonOptions {
-	example?: string;
+	toggles?: {
+		name: string;
+		description: string;
+		func: (actor: CompendiumIndexData) => boolean;
+		indexedFields: string[];
+	}[];
+	searches?: {
+		name: string;
+		description: string;
+		func: (actor: CompendiumIndexData, input: string) => boolean;
+		indexedFields: string[];
+	}[];
+	dropdowns?: {
+		name: string;
+		description: string;
+		options: { label: string; value: any }[];
+		func: (actor: CompendiumIndexData, input: any) => boolean;
+		indexedFields: string[];
+	}[];
+	packs?: string[];
 }
 
-interface SummonMenuContext extends SvelteApplicationRenderContext {
+export interface SummonMenuContext extends SvelteApplicationRenderContext {
 	data: SummonMenuState;
 }
 
