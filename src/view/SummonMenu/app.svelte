@@ -16,17 +16,28 @@
 		...(data.options.searches?.flatMap(x=> x.indexedFields) || []),
 	].filter(x => x !== undefined)))
 
-	for (const pack of data.options.packs!) {
-		game.packs.get(pack)?.getIndex({fields: ['img', ...fields]})
-			.then((index) => { if (index) actors.push(...index); })
-			.catch((err) => console.error(err))
-	}
+	$effect(() => {
+		const loadActors = async () => {
+			const promises = data.options.packs!.map(pack =>
+				game.packs.get(pack)?.getIndex({fields: ['img', ...fields]})
+			);
+
+			try {
+				const indices = await Promise.all(promises);
+				actors = indices.flatMap(index => index?.contents || []);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+
+		loadActors();
+	});
 
 	const filters = Array.from(new Set([
 		...(data.options.dropdowns?.map(x=> ({id: x.id, func: x.func})) || []),
 		...(data.options.toggles?.map(x=> ({id: x.id, func: x.func})) || []),
 		...(data.options.searches?.map(x=> ({id: x.id, func: x.func})) || []),
-	].filter(x => x !== undefined)))
+	]))
 
 	let filterState: Record<string, any> = $state({});
 
@@ -37,7 +48,7 @@
 	const finalActors = $derived.by(() => {
 		let TBFActors = actors;
 
-		if (search.length) {
+		if (search.trim().length) {
 			const regexp = new RegExp(RegExp.escape(search), "i");
 			TBFActors = TBFActors.filter(x => regexp.test(x.name));
 		}
@@ -48,8 +59,6 @@
 
 		return TBFActors;
 	})
-
-	$inspect(finalActors)
 </script>
 
 <article class="root">
@@ -86,13 +95,19 @@
 		</footer>
 	</aside>
 	<article class="main border" bind:clientHeight={height}>
-		<VirtualList width="100%" height={height - 8} itemCount={finalActors.length} itemSize={30} >
+		<VirtualList width="100%" height={height - 8} itemCount={finalActors.length} itemSize={30}>
 			{#snippet item({ style, index })}
 				{@const actor = finalActors[index]}
 				<div {style}>
 					<div class="option border hover" style:height={"28px"}>
-						<div>{actor.name}</div>
-						<div class="level">{actor.system.details.level.value}</div>
+						<svelte:boundary>
+							{#snippet failed()}
+								Failed to render {actor?.name ?? "???"} actor as an entry. See the console for details.
+							{/snippet}
+
+							<div>{actor.name}</div>
+							<div class="level">{actor.system?.details?.level.value}</div>
+						</svelte:boundary>
 					</div>
 				</div>
 			{/snippet}

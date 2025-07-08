@@ -5,6 +5,7 @@ import { SvelteApplicationMixin } from "$lib/SvelteMixin.svelte";
 import Root from "./app.svelte";
 
 interface summonOptions {
+	/** Creates a checkmark input filter */
 	toggles?: {
 		id: string;
 		name: string;
@@ -12,6 +13,8 @@ interface summonOptions {
 		func: (actor: CompendiumIndexData, input: boolean) => boolean;
 		indexedFields?: string[];
 	}[];
+
+	/** Creates a text input filter */
 	searches?: {
 		id: string;
 		name?: string;
@@ -20,6 +23,8 @@ interface summonOptions {
 		func: (actor: CompendiumIndexData, input: string) => boolean;
 		indexedFields?: string[];
 	}[];
+
+	/** Creates a dropdown select filter */
 	dropdowns?: {
 		id: string;
 		name?: string;
@@ -28,7 +33,15 @@ interface summonOptions {
 		func: (actor: CompendiumIndexData, input: any) => boolean;
 		indexedFields?: string[];
 	}[];
+
+	/**
+	 * Which compendium packs to draw sources from.
+	 * @example ["pf2e.pathfinder-npc-core"]
+	 */
 	packs?: string[];
+
+	/** Close the menu once summoning begins. */
+	once?: false,
 }
 
 export interface SummonMenuContext extends SvelteApplicationRenderContext {
@@ -51,6 +64,10 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 			resizable: true,
 		},
 	};
+
+	static start(options: summonOptions) {
+		return new SummonMenu({ summonOptions: options }).render({ force: true })
+	}
 
 	summonOptions: summonOptions;
 
