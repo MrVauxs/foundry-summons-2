@@ -41,7 +41,7 @@ interface summonOptions {
 	packs?: string[];
 
 	/** Close the menu once summoning begins. */
-	once?: false,
+	once?: false;
 }
 
 export interface SummonMenuContext extends SvelteApplicationRenderContext {
@@ -66,7 +66,7 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 	};
 
 	static start(options: summonOptions) {
-		return new SummonMenu({ summonOptions: options }).render({ force: true })
+		return new SummonMenu({ summonOptions: options }).render({ force: true });
 	}
 
 	summonOptions: summonOptions;
@@ -88,9 +88,6 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 
 	protected override root = Root;
 }
-
-// @ts-expect-error Ignore
-window.foundrySummons = SummonMenu;
 
 if (import.meta.hot) {
 	import.meta.hot.accept(async (newModule) => {

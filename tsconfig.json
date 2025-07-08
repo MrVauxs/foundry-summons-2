@@ -17,7 +17,8 @@
 			"vite/client",
 			"jquery",
 			"foundry-pf2e",
-			"foundry-pf2e/lib-wrapper"
+			"foundry-pf2e/lib-wrapper",
+			"sequencer"
 		],
 		"allowImportingTsExtensions": true,
 		"allowJs": true,
