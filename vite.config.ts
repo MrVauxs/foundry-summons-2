@@ -6,6 +6,7 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import autoprefixer from "autoprefixer";
 import vttSync from "foundryvtt-sync";
 import postcssPresetEnv from "postcss-preset-env";
+import { sveltePreprocess } from "svelte-preprocess";
 import { defineConfig } from "vite";
 import moduleJSON from "./module.json" with { type: "json" };
 import { transformEntry } from "./scripts/transformer.mjs";
@@ -123,7 +124,13 @@ export default defineConfig(({ mode }) => {
 		},
 
 		plugins: [
-			svelte({ configFile: "../svelte.config.ts" }),
+			svelte({
+				compilerOptions: {
+					// customElement: true,
+					cssHash: mode === "production" ? ({ hash, css }) => `svelte-${moduleJSON.flags.css.shorthand}-${hash(css)}` : undefined,
+				},
+				preprocess: sveltePreprocess(),
+			}),
 			// tailwindcss(),
 			vttSync(moduleJSON, { transformer: transformEntry }) as Plugin[],
 			{
