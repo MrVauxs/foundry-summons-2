@@ -1,9 +1,9 @@
 import type { ActorPF2e, TokenDocumentPF2e } from "foundry-pf2e";
 
 interface SummonParams {
-	crosshairParameters: Parameters<typeof Sequencer.Crosshair.show>[0];
-	crosshairCallbacks: Parameters<typeof Sequencer.Crosshair.show>[1];
-	updateData: object;
+	crosshairParameters?: Parameters<typeof Sequencer.Crosshair.show>[0];
+	crosshairCallbacks?: Parameters<typeof Sequencer.Crosshair.show>[1];
+	updateData?: object;
 }
 
 type PredicateParams = { uuid: string } | { actor: ActorPF2e };
@@ -43,7 +43,7 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 	// @ts-expect-error Lack of tcal types
 	const summonedActor = await game.tcal.importTransientActor(actor.uuid, {}, updateData) as ActorPF2e;
 
-	const offset = (canvas.scene?.grid.size ?? 200) / 2;
+	const offset = (canvas.scene?.grid.size ?? 200) / 2 * actor.prototypeToken.height;
 	const tokenData = await summonedActor.getTokenDocument({ x: Math.ceil(crosshair.x - offset), y: Math.ceil(crosshair.y - offset) });
 
 	const [created] = await canvas.scene!.createEmbeddedDocuments("Token", [tokenData.toObject()]);

@@ -2,8 +2,9 @@
 	import type { CompendiumIndexData } from "foundry-pf2e/foundry/client/documents/collections/compendium-collection.mjs";
 	import type { SummonMenuContext } from ".";
 	import VirtualList from 'svelte-tiny-virtual-list';
+	import { pick } from "../SummonFunc";
 
-	const { data }: SummonMenuContext = $props();
+	const { data, foundryApp }: SummonMenuContext = $props();
 
 	let search = $state("");
 	let height = $state(0)
@@ -59,17 +60,27 @@
 
 		return TBFActors;
 	})
+
+	async function startSummoning(uuid: string) {
+		try {
+			foundryApp.minimize();
+			await pick({uuid})
+			foundryApp.close();
+		} catch {
+			foundryApp.maximize();
+		}
+	}
 </script>
 
 <article class="root">
 	<aside class="sidebar border">
 		<label>
-			<input type="search" bind:value={search} placeholder="Search by name..." name="search">
+			<input autocomplete="off" type="search" bind:value={search} placeholder="Search by name..." name="search">
 		</label>
 		{#each (data.options.searches || []) as filter}
 			<label data-tooltip={filter.description} data-tooltip-direction="LEFT">
 				{#if filter.name}<span>{filter.name}</span>{/if}
-				<input type="search" name={filter.name} bind:value={filterState[filter.id]} placeholder={filter.placeholder}>
+				<input autocomplete="off" type="search" name={filter.name} bind:value={filterState[filter.id]} placeholder={filter.placeholder}>
 			</label>
 		{/each}
 		{#each (data.options.dropdowns || []) as filter}
@@ -99,7 +110,14 @@
 			{#snippet item({ style, index })}
 				{@const actor = finalActors[index]}
 				<div {style}>
-					<div class="option border hover" style:height={"28px"}>
+					<div
+						role="button"
+						tabindex="0"
+						onkeydown={() => startSummoning(actor.uuid)}
+						onclick={() => startSummoning(actor.uuid)}
+						class="option border hover"
+						style:height={"28px"}
+					>
 						<svelte:boundary>
 							{#snippet failed()}
 								Errored on {actor?.name ?? "???"}. See the console for details.
