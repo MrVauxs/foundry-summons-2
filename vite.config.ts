@@ -2,7 +2,7 @@ import type { Plugin, UserConfig } from "vite";
 import { existsSync, mkdir, writeFileSync } from "node:fs";
 import path from "node:path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import tailwindcss from "@tailwindcss/vite";
+// import tailwindcss from "@tailwindcss/vite";
 import autoprefixer from "autoprefixer";
 import vttSync from "foundryvtt-sync";
 import postcssPresetEnv from "postcss-preset-env";
@@ -123,8 +123,8 @@ export default defineConfig(({ mode }) => {
 		},
 
 		plugins: [
-			svelte({ configFile: "../svelte.config.js" }),
-			tailwindcss(),
+			svelte({ configFile: "../svelte.config.ts" }),
+			// tailwindcss(),
 			vttSync(moduleJSON, { transformer: transformEntry }) as Plugin[],
 			{
 				name: "create-dist-files",

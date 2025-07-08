@@ -1,9 +1,7 @@
-import { SvelteShadowApplicationMixin } from "$lib/SvelteShadowMixin.svelte";
+import { SvelteApplicationMixin } from "$lib/SvelteMixin.svelte";
 import Root from "./app.svelte";
 
-export class SummonMenu extends SvelteShadowApplicationMixin(foundry.applications.api.ApplicationV2) {
-	elementId = "test-app";
-
+export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.ApplicationV2) {
 	static override DEFAULT_OPTIONS = {
 		position: {
 			width: 650,
