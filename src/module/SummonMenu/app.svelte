@@ -74,6 +74,7 @@
 
 <article class="root">
 	<aside class="sidebar border">
+		<div class="sidebar-contents">
 		<label>
 			<input autocomplete="off" type="search" bind:value={search} placeholder="Search by name..." name="search">
 		</label>
@@ -101,8 +102,9 @@
 				</label>
 			{/each}
 		</div>
-		<footer class="footer">
-			{finalActors.length} / {actors.length}
+		</div>
+		<footer class="footer border">
+			Showing {finalActors.length} out of {actors.length} Actors
 		</footer>
 	</aside>
 	<article class="main border" bind:clientHeight={height}>
@@ -135,6 +137,8 @@
 
 <style lang="postcss">
 	.footer {
+		position: sticky;
+		bottom: 0;
 		margin-top: auto;
 		font-size: 0.75rem;
 		text-align: right;
@@ -170,9 +174,14 @@
 		flex: 0 0 33%;
 		padding: 0.25rem;
 
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+		& .sidebar-contents {
+			height: calc(100% - 1.2rem);
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			overflow-y: auto;
+			overflow-x: clip;
+		}
 	}
 
 	.main {
@@ -196,8 +205,12 @@
   		align-content: stretch;
 
 		input {
+			width: fit-content;
+			&::before {
+				display: inline-block;
+				width: 1.5rem;
+			}
 			margin-left: auto;
-			margin-right: 0.25rem;
 		}
 	}
 
