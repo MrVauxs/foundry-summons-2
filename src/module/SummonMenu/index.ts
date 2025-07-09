@@ -40,8 +40,11 @@ interface summonOptions {
 	 */
 	packs?: string[];
 
-	/** Close the menu once summoning begins. */
-	once?: false;
+	/**
+	 * Close the menu once summoning begins.
+	 * @default true
+	*/
+	once?: boolean;
 }
 
 export interface SummonMenuContext extends SvelteApplicationRenderContext {
@@ -75,6 +78,7 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 		super(options);
 		this.summonOptions = options?.summonOptions || {};
 		this.summonOptions.packs ??= game.packs.contents.filter(x => x.metadata.type === "Actor").map(x => x.metadata.id);
+		this.summonOptions.once ??= true;
 	}
 
 	protected override async _prepareContext(): Promise<SummonMenuContext> {

@@ -65,7 +65,7 @@
 		try {
 			foundryApp.minimize();
 			await pick({uuid})
-			foundryApp.close();
+			if (data.options.once) foundryApp.close();
 		} catch {
 			foundryApp.maximize();
 		}
