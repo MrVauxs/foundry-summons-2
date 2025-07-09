@@ -39,9 +39,15 @@
 				"compatibility": {
 					"minimum": "3.0.0"
 				}
+			},
+			{
+				"id": "socketlib",
+				"type": "module",
+				"manifest": "https://github.com/farling42/foundryvtt-socketlib/releases/latest/download/module.json"
 			}
 		]
 	},
+	"socket": true,
 	"packs": [],
 	"packFolders": [],
 	"flags": {

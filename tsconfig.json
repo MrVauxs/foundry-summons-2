@@ -18,6 +18,7 @@
 			"jquery",
 			"foundry-pf2e",
 			"foundry-pf2e/lib-wrapper",
+			"foundry-pf2e/socketlib",
 			"sequencer"
 		],
 		"allowImportingTsExtensions": true,
