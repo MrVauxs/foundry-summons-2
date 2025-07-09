@@ -1,5 +1,8 @@
 # Foundry Summons 2
 
+An all-in-one solution to all your summoning needs with NO need to import Actors to place them on the map!
+Should work on any system. V12 and V13 compatible.
+
 ## Quickstart
 
 Create a macro with the following code to **open a summon menu**:
