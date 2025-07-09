@@ -16,4 +16,4 @@ interface Window {
 - [pick](https://github.com/MrVauxs/foundry-summons-2/blob/main/src/module/SummonFunc/index.ts) is a function which takes in an uuid or actor document, and optionally actor update data, [Sequencer crosshair parameters, and callbacks](https://fantasycomputer.works/FoundryVTT-Sequencer/#/crosshair).
 
 ### SummonMenu Options
-Up to date type definitions can be found [here](https://github.com/MrVauxs/foundry-summons-2/blob/main/src/module/SummonMenu/index.ts#L7).
+Up to date type definitions (such as filters, packs, and other options) can be found [here](https://github.com/MrVauxs/foundry-summons-2/blob/main/src/module/SummonMenu/index.ts#L7).
