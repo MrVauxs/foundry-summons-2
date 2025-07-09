@@ -64,23 +64,24 @@ jobs:
               run: zip -r9 ./module.zip module.json assets/ lang/ dist/ packs/ CHANGELOG.md LICENSE README.md
 
             # Create a release for this specific version.
-            - name: Update Release with Files
+            - name: Update release with files
               id: create_version_release
               uses: ncipollo/release-action@v1
               with:
-                  allowUpdates: true # Set this to false if you want to prevent updating existing releases.
-                  name: ${{ github.event.release.name }}
-                  tag: ${{ github.event.release.tag_name }}
-                  body: ${{ github.event.release.body }}
-                  artifacts: "./module.json, ./module.zip"
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  allowUpdates: true
                   omitDraftDuringUpdate: true
                   omitPrereleaseDuringUpdate: true
+                  name: ${{ steps.get-version.outputs.version-without-v }}
+                  artifacts: "./module.json, ./module.zip"
 
-            - name: Send Discord Ping
-              uses: Ilshidur/action-discord@0.3.2
+            - name: Publish to FoundryVTT
+              uses: cs96and/FoundryVTT-release-package@v1.0.2
+              if: ${{ !github.event.release.prerelease && env.PACKAGE_TOKEN }}
               env:
-                  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-              if: ${{ env.DISCORD_WEBHOOK != '' && !github.event.release.prerelease }}
+                  PACKAGE_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
               with:
-                  args: "${{ (steps.get-version.outputs.version-without-v == '1.0.0' && '<@&1127986401590382712>') || '' }} ${{steps.title.outputs.title}} has been updated to version `${{github.event.release.tag_name}}`!"
+                  package-token: ${{ env.PACKAGE_TOKEN }}
+                  manifest-url: https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/module.json
+
             # endregion
