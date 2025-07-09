@@ -1,5 +1,19 @@
 # Foundry Summons 2
 
+## Quickstart
+
+Create a macro with the following code to **open a summon menu**:
+```js
+	foundrySummons.SummonMenu.start()
+```
+
+Create a macro with the following code to **start summoning a specific token**:
+```js
+	foundrySummons.pick({ uuid: "UUID of Compendium Actor" })
+```
+
+See the [wiki](https://github.com/MrVauxs/foundry-summons-2/wiki) for more advanced macros.
+
 ## API
 
 ```ts
