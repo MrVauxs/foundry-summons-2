@@ -7,31 +7,54 @@ import Root from "./app.svelte";
 interface summonOptions {
 	/** Creates a checkmark input filter */
 	toggles?: {
+		/** Unique ID across all types of filters */
 		id: string;
+		/** Display name for the filter */
 		name: string;
+		/** On hover tooltip description */
 		description?: string;
+		/** The .filter() function */
 		func: (actor: CompendiumIndexData, input: boolean) => boolean;
+		/**
+		 * What fields to index when pulling actors. Follows basic dot notation such as `system.details.level.value`.
+		 */
 		indexedFields?: string[];
 	}[];
 
 	/** Creates a text input filter */
 	searches?: {
+		/** Unique ID across all types of filters */
 		id: string;
-		name?: string;
+		/** Display name for the filter */
+		name: string;
+		/** On hover tooltip description */
 		description?: string;
-		placeholder?: string;
-		func: (actor: CompendiumIndexData, input: string) => boolean;
+		/** The .filter() function */
+		func: (actor: CompendiumIndexData, input: boolean) => boolean;
+		/**
+		 * What fields to index when pulling actors. Follows basic dot notation such as `system.details.level.value`.
+		 */
 		indexedFields?: string[];
+		/** Placeholder text inside the text input */
+		placeholder?: string;
 	}[];
 
 	/** Creates a dropdown select filter */
 	dropdowns?: {
+		/** Unique ID across all types of filters */
 		id: string;
-		name?: string;
+		/** Display name for the filter */
+		name: string;
+		/** On hover tooltip description */
 		description?: string;
-		options: { label: string; value: any }[];
-		func: (actor: CompendiumIndexData, input: any) => boolean;
+		/** The .filter() function */
+		func: (actor: CompendiumIndexData, input: boolean) => boolean;
+		/**
+		 * What fields to index when pulling actors. Follows basic dot notation such as `system.details.level.value`.
+		 */
 		indexedFields?: string[];
+		/** The options to put inside the select dropdown and their respective values. */
+		options: { label: string; value: any }[];
 	}[];
 
 	/**
