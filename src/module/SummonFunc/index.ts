@@ -24,6 +24,11 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 	const crosshair = await Sequencer.Crosshair.show(
 		{
 			// @ts-expect-error Fucked up Sequencer types
+			location: {
+				obj: canvas.tokens.controlled[0],
+				showRange: true,
+			},
+			// @ts-expect-error Fucked up Sequencer types
 			texture: actor.prototypeToken.texture.src,
 			distance: actor.prototypeToken.height * canvas.grid.distance / 2,
 			textureAlpha: 1,
