@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { settings } from "./module/settings.svelte";
 import { pick } from "./module/SummonFunc";
 import { SummonMenu } from "./module/SummonMenu";
 import "./styles/main.css";
@@ -8,6 +9,7 @@ import "./module/socket";
 window.foundrySummons = {
 	pick,
 	SummonMenu,
+	settings,
 };
 
 if (import.meta.hot) {

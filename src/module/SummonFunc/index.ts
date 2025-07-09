@@ -41,15 +41,18 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 
 	if (!crosshair) throw console.error("Crosshair cancelled, exiting summoning.");
 
+	const [template] = await canvas.scene!.createEmbeddedDocuments("MeasuredTemplate", [crosshair]);
+
 	return await socket!.executeAsGM(
 		"summon",
 		{
 			uuid: actor.uuid,
-			crosshair,
+			template: template.toJSON(),
 			updateData: {
 				ownership: { [game.userId]: 3 },
 				...updateData,
 			},
+			userId: game.userId,
 		},
 	);
 }
