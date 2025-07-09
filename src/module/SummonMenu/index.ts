@@ -66,7 +66,7 @@ interface summonOptions {
 	/**
 	 * Close the menu once summoning begins.
 	 * @default true
-	*/
+	 */
 	once?: boolean;
 }
 

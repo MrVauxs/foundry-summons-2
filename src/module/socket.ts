@@ -36,8 +36,8 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 			style: CONFIG.Canvas.pings.types.PULSE,
 			size: canvas.grid.size * actor.prototypeToken.height,
 			duration: 10 * 1000,
-		}
-	)
+		},
+	);
 
 	if (user.role < settings.permission) {
 		const result = await foundry.applications.api.DialogV2.confirm({
@@ -58,7 +58,7 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 	const offset = (canvas.scene?.grid.size ?? 200) / 2 * actor.prototypeToken.height;
 	const tokenData = await summonedActor.getTokenDocument({
 		x: Math.ceil((fullTemplate?.x || template.x) - offset),
-		y: Math.ceil((fullTemplate?.y || template.y) - offset)
+		y: Math.ceil((fullTemplate?.y || template.y) - offset),
 	});
 
 	const [created] = await canvas.scene!.createEmbeddedDocuments("Token", [tokenData.toObject()]);
