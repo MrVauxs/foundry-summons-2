@@ -55,7 +55,7 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 	const summonedActor = await game.tcal.importTransientActor(actor.uuid, {}, updateData) as ActorPF2e;
 
 	const fullTemplate = canvas.scene!.templates.get(template._id!);
-	const offset = (canvas.scene?.grid.size ?? 200) / 2 * actor.prototypeToken.height;
+	const offset = (canvas.scene?.grid.size ?? 200) / 2 * summonedActor.prototypeToken.height;
 	const tokenData = await summonedActor.getTokenDocument({
 		x: Math.ceil((fullTemplate?.x || template.x) - offset),
 		y: Math.ceil((fullTemplate?.y || template.y) - offset),
