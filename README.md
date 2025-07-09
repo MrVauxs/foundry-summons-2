@@ -3,11 +3,13 @@
 ## API
 
 ```ts
-foundrySummons: {
-	SummonMenu: typeof SummonMenu;
-	pick: typeof pick;
-	settings: Settings;
-};
+interface Window {
+	foundrySummons: {
+		SummonMenu: typeof SummonMenu;
+		pick: typeof pick;
+		settings: Settings;
+	};
+}
 ```
 
 - [SummonMenu](https://github.com/MrVauxs/foundry-summons-2/blob/main/src/module/SummonMenu/index.ts) is an AppV2 class which you can render whether through usual `new SummonMenu({ summonOptions: {...options} }).render()` method or by its static initializer, `SummonMenu.start(options)`.
