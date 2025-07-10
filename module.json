@@ -69,7 +69,7 @@
 		{
 			"auto": true,
 			"type": "setup",
-			"url": "modules/foundry-summons/assets/setup.png"
+			"url": "modules/foundry-summons/assets/setup.webp"
 		}
 	],
 	"bugs": "https://github.com/MrVauxs/foundry-summons-2",
