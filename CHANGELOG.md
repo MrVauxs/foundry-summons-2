@@ -1,3 +1,8 @@
+# 2.2.0
+
+- Changed setup image from generic template to the original Foundry Summons image.
+- Added `sort` to `systemConstants`
+
 # 2.1.0
 
 - Added `updateData` and `actorLink` summonOptions.

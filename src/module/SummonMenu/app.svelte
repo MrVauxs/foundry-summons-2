@@ -12,6 +12,7 @@
 	let height = $state(0);
 
 	let actors: CompendiumIndexData[] = $state([]);
+	const systemConstants = window.foundrySummons.systemConstants[game.system.id];
 
 	const fields = Array.from(new Set([
 		...(data.options.dropdowns?.flatMap(x => x.indexedFields) || []),
@@ -27,7 +28,6 @@
 			);
 
 			try {
-				const systemConstants = window.foundrySummons.systemConstants[game.system.id];
 				const indices = await Promise.all(promises);
 				actors = indices
 					.flatMap(index => index?.contents || [])
@@ -54,7 +54,7 @@
 	}
 
 	const finalActors = $derived.by(() => {
-		let TBFActors = actors;
+		let TBFActors = actors.toSorted(systemConstants?.sort ? systemConstants.sort : () => 0);
 
 		if (data.options.filter) {
 			TBFActors = TBFActors.filter(data.options.filter);

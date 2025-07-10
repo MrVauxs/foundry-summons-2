@@ -18,7 +18,7 @@ if (import.meta.hot) {
 	import.meta.hot.accept([
 		"./module/SummonFunc",
 		"./module/SummonMenu",
-		"./module/systemFilters",
+		"./module/systemConstants",
 	], async ([summonFunc, summonMenu, systemConstants]) => {
 		if (summonFunc?.pick) {
 			console.log("HMR pick function");
