@@ -5,6 +5,24 @@ import { SvelteApplicationMixin } from "$lib/SvelteMixin.svelte";
 import Root from "./app.svelte";
 
 interface summonOptions {
+	/**
+	 * Which compendium packs to draw sources from.
+	 * @example ["pf2e.pathfinder-npc-core"]
+	 */
+	packs?: string[];
+
+	/**
+	 * Close the menu once summoning begins.
+	 * @default true
+	 */
+	once?: boolean;
+
+	/**
+	 * A default index filter that is applied no matter what.
+	 * @example [PF2e] (a) => actor.type === "npc"
+	 */
+	filter?: (actor: CompendiumIndexData) => boolean;
+
 	/** Creates a checkmark input filter */
 	toggles?: {
 		/** Unique ID across all types of filters */
@@ -56,18 +74,6 @@ interface summonOptions {
 		/** The options to put inside the select dropdown and their respective values. */
 		options: { label: string; value: any }[];
 	}[];
-
-	/**
-	 * Which compendium packs to draw sources from.
-	 * @example ["pf2e.pathfinder-npc-core"]
-	 */
-	packs?: string[];
-
-	/**
-	 * Close the menu once summoning begins.
-	 * @default true
-	 */
-	once?: boolean;
 }
 
 export interface SummonMenuContext extends SvelteApplicationRenderContext {

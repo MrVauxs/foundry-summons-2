@@ -3,6 +3,7 @@
 	import type { SummonMenuContext } from ".";
 	import VirtualList from 'svelte-tiny-virtual-list';
 	import { pick } from "../SummonFunc";
+	import { systemFilters } from "../systemFilters";
 
 	const { data, foundryApp }: SummonMenuContext = $props();
 
@@ -48,6 +49,14 @@
 
 	const finalActors = $derived.by(() => {
 		let TBFActors = actors;
+
+		if (data.options.filter) {
+			TBFActors = TBFActors.filter(data.options.filter)
+		}
+
+		if (window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters]) {
+			TBFActors = TBFActors.filter(window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters])
+		}
 
 		if (search.trim().length) {
 			const regexp = new RegExp(RegExp.escape(search), "i");

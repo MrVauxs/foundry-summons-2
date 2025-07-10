@@ -1,6 +1,7 @@
 import type { Settings } from "./module/settings.svelte";
 import type { pick } from "./module/SummonFunc";
 import type { SummonMenu } from "./module/SummonMenu";
+import type { systemFilters } from "./module/systemFilters";
 
 declare module "vite/types/customEvent.d.ts" {
 	interface CustomEventMap {
@@ -18,6 +19,7 @@ declare global {
 			SummonMenu: typeof SummonMenu;
 			pick: typeof pick;
 			settings: Settings;
+			systemFilters: typeof systemFilters;
 		};
 	}
 }
