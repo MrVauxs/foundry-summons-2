@@ -2,7 +2,7 @@
 import { settings } from "./module/settings.svelte";
 import { pick } from "./module/SummonFunc";
 import { SummonMenu } from "./module/SummonMenu";
-import { systemFilters } from "./module/systemFilters";
+import { systemConstants } from "./module/systemConstants";
 import "./styles/main.css";
 import "./app.css";
 import "./module/socket";
@@ -11,7 +11,7 @@ window.foundrySummons = {
 	pick,
 	SummonMenu,
 	settings,
-	systemFilters,
+	systemConstants,
 };
 
 if (import.meta.hot) {
@@ -19,7 +19,7 @@ if (import.meta.hot) {
 		"./module/SummonFunc",
 		"./module/SummonMenu",
 		"./module/systemFilters",
-	], async ([summonFunc, summonMenu, systemFilters]) => {
+	], async ([summonFunc, summonMenu, systemConstants]) => {
 		if (summonFunc?.pick) {
 			console.log("HMR pick function");
 			window.foundrySummons.pick = summonFunc.pick;
@@ -28,9 +28,9 @@ if (import.meta.hot) {
 			console.log("HMR SummonMenu class");
 			window.foundrySummons.SummonMenu = summonMenu.summon;
 		}
-		if (systemFilters?.systemFilters) {
+		if (systemConstants?.systemConstants) {
 			console.log("HMR SummonMenu class");
-			window.foundrySummons.systemFilters = systemFilters.systemFilters;
+			window.foundrySummons.systemConstants = systemConstants.systemConstants;
 		}
 	});
 }

@@ -3,7 +3,6 @@
 	import type { SummonMenuContext } from ".";
 	import VirtualList from 'svelte-tiny-virtual-list';
 	import { pick } from "../SummonFunc";
-	import { systemFilters } from "../systemFilters";
 	import { FileUser } from '@lucide/svelte';
 	import type { ActorPF2e } from "foundry-pf2e";
 
@@ -18,6 +17,7 @@
 		...(data.options.dropdowns?.flatMap(x=> x.indexedFields) || []),
 		...(data.options.toggles?.flatMap(x=> x.indexedFields) || []),
 		...(data.options.searches?.flatMap(x=> x.indexedFields) || []),
+		...(window.foundrySummons.systemConstants[game.system.id]?.indexedFields || [])
 	].filter(x => x !== undefined)))
 
 	$effect(() => {
@@ -27,14 +27,12 @@
 			);
 
 			try {
+				const systemConstants = window.foundrySummons.systemConstants[game.system.id];
 				const indices = await Promise.all(promises);
 				actors = indices
 					.flatMap(index => index?.contents || [])
 					// The filter is here to not have finalActors and actors always mismatched in numbers, since the system filters should be always applied.
-					.filter(
-						window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters]
-						? window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters]
-						: () => true);
+					.filter(systemConstants?.filter ? systemConstants.filter : () => true);
 			} catch (err) {
 				console.error(err);
 			}
@@ -91,6 +89,7 @@
 		if (!actor) throw ui.notifications.error("Somehow, this actor does not exist!")
 
 		if (window.foundrySummons.settings.seeActors) {
+			// Magic Hack
 			actor.getUserLevel = () => 3;
 		}
 
@@ -158,7 +157,13 @@
 								<FileUser />
 							</button>
 							<div>{actor.name}</div>
-							<div class="level">{actor.system?.details?.level.value}</div>
+							<div class="level">
+								<span>L</span>
+								{#if String(actor.system?.details?.level.value).length === 1}
+									<span style:opacity="10%">0</span>
+								{/if}
+								<span>{actor.system?.details?.level.value}</span>
+							</div>
 						</svelte:boundary>
 					</div>
 				</div>
@@ -268,6 +273,11 @@
 		& .level {
 			margin-left: auto;
 			font-variant-numeric: tabular-nums;
+			font-size: 0;
+
+			& > span {
+				font-size: small;
+			}
 		}
 	}
 </style>
