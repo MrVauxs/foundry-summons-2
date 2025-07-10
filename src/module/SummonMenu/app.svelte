@@ -5,6 +5,7 @@
 	import { pick } from "../SummonFunc";
 	import { FileUser } from '@lucide/svelte';
 	import type { ActorPF2e } from "foundry-pf2e";
+	import { settings } from "../settings.svelte";
 
 	const { data, foundryApp }: SummonMenuContext = $props();
 
@@ -74,6 +75,9 @@
 
 	async function startSummoning(uuid: string) {
 		try {
+			if (!(game.users.activeGM)) {
+				throw ui.notifications.warn("There is no active GM to accept this summon!");
+			}
 			foundryApp.minimize();
 			await pick({uuid})
 			if (data.options.once) foundryApp.close();
