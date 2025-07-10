@@ -3,10 +3,12 @@ import { id } from "moduleJSON";
 
 export interface Settings {
 	permission: number;
+	seeActors: boolean;
 }
 
 const settings: Settings = $state({
 	permission: 2,
+	seeActors: false,
 });
 
 const setData: (SettingRegistration & { key: string })[] = [
@@ -15,6 +17,7 @@ const setData: (SettingRegistration & { key: string })[] = [
 		name: "Minimum Permissions",
 		hint: "Which permission level at which an user is trusted to not have to prompt for summoning confirmations.",
 		config: true,
+		scope: "world",
 		default: 2,
 		type: Number,
 		choices: {
@@ -23,7 +26,17 @@ const setData: (SettingRegistration & { key: string })[] = [
 			3: "Assistant GM",
 			4: "Game Master",
 		},
-		onChange: (choice) => { settings.permission = choice as number; },
+		onChange: (choice: any) => { settings.permission = choice; },
+	},
+	{
+		key: "seeActors",
+		name: "NPC Previews",
+		hint: "Whether players can preview NPC statblocks when summoning a creature.",
+		config: true,
+		scope: "world",
+		default: false,
+		type: Boolean,
+		onChange: (choice: any) => { settings.seeActors = choice; },
 	},
 ];
 
@@ -33,7 +46,8 @@ Hooks.once("init", () => {
 	}
 
 	for (const set of setData) {
-		settings[set.key as keyof Settings] = game.settings.get(id, set.key) as ValueOf<Settings>;
+		// @ts-expect-error Never say never
+		settings[set.key as keyof Settings] = game.settings.get(id, set.key);
 	}
 });
 

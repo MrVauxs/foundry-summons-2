@@ -8,6 +8,7 @@ import vttSync from "foundryvtt-sync";
 import postcssPresetEnv from "postcss-preset-env";
 import { sveltePreprocess } from "svelte-preprocess";
 import { defineConfig } from "vite";
+import lucidePreprocess from "vite-plugin-lucide-preprocess";
 import moduleJSON from "./module.json" with { type: "json" };
 import { transformEntry } from "./scripts/transformer.mjs";
 
@@ -124,6 +125,7 @@ export default defineConfig(({ mode }) => {
 		},
 
 		plugins: [
+			lucidePreprocess(),
 			svelte({
 				compilerOptions: {
 					// customElement: true,

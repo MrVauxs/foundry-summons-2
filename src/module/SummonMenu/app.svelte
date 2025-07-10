@@ -4,6 +4,8 @@
 	import VirtualList from 'svelte-tiny-virtual-list';
 	import { pick } from "../SummonFunc";
 	import { systemFilters } from "../systemFilters";
+	import { FileUser } from '@lucide/svelte';
+	import type { ActorPF2e } from "foundry-pf2e";
 
 	const { data, foundryApp }: SummonMenuContext = $props();
 
@@ -26,7 +28,13 @@
 
 			try {
 				const indices = await Promise.all(promises);
-				actors = indices.flatMap(index => index?.contents || []);
+				actors = indices
+					.flatMap(index => index?.contents || [])
+					// The filter is here to not have finalActors and actors always mismatched in numbers, since the system filters should be always applied.
+					.filter(
+						window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters]
+						? window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters]
+						: () => true);
 			} catch (err) {
 				console.error(err);
 			}
@@ -54,10 +62,6 @@
 			TBFActors = TBFActors.filter(data.options.filter)
 		}
 
-		if (window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters]) {
-			TBFActors = TBFActors.filter(window.foundrySummons.systemFilters[game.system.id as keyof typeof systemFilters])
-		}
-
 		if (search.trim().length) {
 			const regexp = new RegExp(RegExp.escape(search), "i");
 			TBFActors = TBFActors.filter(x => regexp.test(x.name));
@@ -78,6 +82,19 @@
 		} catch {
 			foundryApp.maximize();
 		}
+	}
+
+	async function previewActor(ev: Event, uuid: string) {
+		ev.stopPropagation();
+
+		const actor: ActorPF2e | null = await fromUuid(uuid);
+		if (!actor) throw ui.notifications.error("Somehow, this actor does not exist!")
+
+		if (window.foundrySummons.settings.seeActors) {
+			actor.getUserLevel = () => 3;
+		}
+
+		actor.sheet.render(true)
 	}
 </script>
 
@@ -117,7 +134,7 @@
 		</footer>
 	</aside>
 	<article class="main border" bind:clientHeight={height}>
-		<VirtualList width="100%" height={height - 8} itemCount={finalActors.length} itemSize={30}>
+		<VirtualList width="100%" height={height - 8} itemCount={finalActors.length} itemSize={32}>
 			{#snippet item({ style, index })}
 				{@const actor = finalActors[index]}
 				<div {style}>
@@ -127,13 +144,19 @@
 						onkeydown={() => startSummoning(actor.uuid)}
 						onclick={() => startSummoning(actor.uuid)}
 						class="option border hover"
-						style:height={"28px"}
 					>
 						<svelte:boundary>
 							{#snippet failed()}
 								Errored on {actor?.name ?? "???"}. See the console for details.
 							{/snippet}
 
+							<button
+								aria-label="Preview"
+								onclick={(ev) => previewActor(ev, actor.uuid)}
+								class="btn-icon"
+							>
+								<FileUser />
+							</button>
 							<div>{actor.name}</div>
 							<div class="level">{actor.system?.details?.level.value}</div>
 						</svelte:boundary>
@@ -145,6 +168,18 @@
 </article>
 
 <style lang="postcss">
+	.btn-icon {
+		width: 1rem;
+		height: 1rem;
+		text-align: center;
+		margin-right: 0.25rem;
+		border: none;
+		background: none;
+
+		/* Reset */
+		padding: 0;
+	}
+
 	.footer {
 		position: sticky;
 		bottom: 0;
@@ -155,7 +190,7 @@
 	}
 
 	.border {
-		padding: 0 4px;
+		padding-inline: 4px;
 		border: 2px solid transparent;
 		border-radius: 0.5rem;
 		background:
