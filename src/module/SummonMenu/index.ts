@@ -18,6 +18,19 @@ interface summonOptions {
 	once?: boolean;
 
 	/**
+	 * Whether the "Link Actor Data" token setting is on.
+	 * Useful when dealing with persistent summons that share HP across scenes.
+	 * Disable when you just want to be able to copy paste the same summon. But then its better if you set "once": false instead.
+	 * @default true
+	 */
+	actorLink?: boolean;
+
+	/**
+	 * Modification data to Pass when an actor is created. Same as .update().
+	 */
+	updateData?: object;
+
+	/**
 	 * A default index filter that is applied no matter what.
 	 * @example [PF2e] (a) => actor.type === "npc"
 	 */

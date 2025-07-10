@@ -78,7 +78,7 @@
 				throw ui.notifications.warn("There is no active GM to accept this summon!");
 			}
 			foundryApp.minimize();
-			await pick({ uuid });
+			await pick({ uuid, updateData: { prototypeToken: { actorLink: data.options.actorLink }, ...data.options.updateData }});
 			if (data.options.once) foundryApp.close();
 		} catch {
 			foundryApp.maximize();
