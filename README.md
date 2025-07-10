@@ -32,6 +32,7 @@ interface Window {
 		SummonMenu: typeof SummonMenu;
 		pick: typeof pick;
 		settings: Settings;
+		systemConstants: typeof systemConstants;
 	};
 }
 ```
