@@ -1,30 +1,29 @@
 <script lang="ts">
+	import type { ActorPF2e } from "foundry-pf2e";
 	import type { CompendiumIndexData } from "foundry-pf2e/foundry/client/documents/collections/compendium-collection.mjs";
 	import type { SummonMenuContext } from ".";
-	import VirtualList from 'svelte-tiny-virtual-list';
+	import { FileUser } from "@lucide/svelte";
+	import VirtualList from "svelte-tiny-virtual-list";
 	import { pick } from "../SummonFunc";
-	import { FileUser } from '@lucide/svelte';
-	import type { ActorPF2e } from "foundry-pf2e";
-	import { settings } from "../settings.svelte";
 
 	const { data, foundryApp }: SummonMenuContext = $props();
 
 	let search = $state("");
-	let height = $state(0)
+	let height = $state(0);
 
-	let actors: CompendiumIndexData[] = $state([])
+	let actors: CompendiumIndexData[] = $state([]);
 
 	const fields = Array.from(new Set([
-		...(data.options.dropdowns?.flatMap(x=> x.indexedFields) || []),
-		...(data.options.toggles?.flatMap(x=> x.indexedFields) || []),
-		...(data.options.searches?.flatMap(x=> x.indexedFields) || []),
-		...(window.foundrySummons.systemConstants[game.system.id]?.indexedFields || [])
-	].filter(x => x !== undefined)))
+		...(data.options.dropdowns?.flatMap(x => x.indexedFields) || []),
+		...(data.options.toggles?.flatMap(x => x.indexedFields) || []),
+		...(data.options.searches?.flatMap(x => x.indexedFields) || []),
+		...(window.foundrySummons.systemConstants[game.system.id]?.indexedFields || []),
+	].filter(x => x !== undefined)));
 
 	$effect(() => {
 		const loadActors = async () => {
 			const promises = data.options.packs!.map(pack =>
-				game.packs.get(pack)?.getIndex({fields: ['img', ...fields]})
+				game.packs.get(pack)?.getIndex({ fields: ["img", ...fields] }),
 			);
 
 			try {
@@ -43,22 +42,22 @@
 	});
 
 	const filters = Array.from(new Set([
-		...(data.options.dropdowns?.map(x=> ({id: x.id, func: x.func})) || []),
-		...(data.options.toggles?.map(x=> ({id: x.id, func: x.func})) || []),
-		...(data.options.searches?.map(x=> ({id: x.id, func: x.func})) || []),
-	]))
+		...(data.options.dropdowns?.map(x => ({ id: x.id, func: x.func })) || []),
+		...(data.options.toggles?.map(x => ({ id: x.id, func: x.func })) || []),
+		...(data.options.searches?.map(x => ({ id: x.id, func: x.func })) || []),
+	]));
 
-	let filterState: Record<string, any> = $state({});
+	const filterState: Record<string, any> = $state({});
 
 	for (const filter of filters) {
-		filterState[filter.id] = undefined
+		filterState[filter.id] = undefined;
 	}
 
 	const finalActors = $derived.by(() => {
 		let TBFActors = actors;
 
 		if (data.options.filter) {
-			TBFActors = TBFActors.filter(data.options.filter)
+			TBFActors = TBFActors.filter(data.options.filter);
 		}
 
 		if (search.trim().length) {
@@ -67,11 +66,11 @@
 		}
 
 		for (const filter of filters) {
-			TBFActors = TBFActors.filter((actor) => filter.func(actor, filterState[filter.id] as never))
+			TBFActors = TBFActors.filter(actor => filter.func(actor, filterState[filter.id] as never));
 		}
 
 		return TBFActors;
-	})
+	});
 
 	async function startSummoning(uuid: string) {
 		try {
@@ -79,7 +78,7 @@
 				throw ui.notifications.warn("There is no active GM to accept this summon!");
 			}
 			foundryApp.minimize();
-			await pick({uuid})
+			await pick({ uuid });
 			if (data.options.once) foundryApp.close();
 		} catch {
 			foundryApp.maximize();
@@ -90,47 +89,47 @@
 		ev.stopPropagation();
 
 		const actor: ActorPF2e | null = await fromUuid(uuid);
-		if (!actor) throw ui.notifications.error("Somehow, this actor does not exist!")
+		if (!actor) throw ui.notifications.error("Somehow, this actor does not exist!");
 
 		if (window.foundrySummons.settings.seeActors) {
 			// Magic Hack
 			actor.getUserLevel = () => 3;
 		}
 
-		actor.sheet.render(true)
+		actor.sheet.render(true);
 	}
 </script>
 
 <article class="root">
 	<aside class="sidebar border">
 		<div class="sidebar-contents">
-		<label>
-			<input autocomplete="off" type="search" bind:value={search} placeholder="Search by name..." name="search">
-		</label>
-		{#each (data.options.searches || []) as filter}
-			<label data-tooltip={filter.description} data-tooltip-direction="LEFT">
-				{#if filter.name}<span>{filter.name}</span>{/if}
-				<input autocomplete="off" type="search" name={filter.name} bind:value={filterState[filter.id]} placeholder={filter.placeholder}>
+			<label>
+				<input autocomplete="off" type="search" bind:value={search} placeholder="Search by name..." name="search">
 			</label>
-		{/each}
-		{#each (data.options.dropdowns || []) as filter}
-			<label data-tooltip={filter.description} data-tooltip-direction="LEFT">
-				{#if filter.name}<span>{filter.name}</span>{/if}
-				<select name={filter.name} bind:value={filterState[filter.id]}>
-					{#each filter.options as option}
-						<option value={option.value}>{option.label}</option>
-					{/each}
-				</select>
-			</label>
-		{/each}
-		<div class="flexrow">
-			{#each (data.options.toggles || []) as filter}
-				<label class="flex-input border" data-tooltip={filter.description} data-tooltip-direction="UP">
+			{#each (data.options.searches || []) as filter}
+				<label data-tooltip={filter.description} data-tooltip-direction="LEFT">
 					{#if filter.name}<span>{filter.name}</span>{/if}
-					<input type="checkbox" name={filter.name} bind:checked={filterState[filter.id]}>
+					<input autocomplete="off" type="search" name={filter.name} bind:value={filterState[filter.id]} placeholder={filter.placeholder}>
 				</label>
 			{/each}
-		</div>
+			{#each (data.options.dropdowns || []) as filter}
+				<label data-tooltip={filter.description} data-tooltip-direction="LEFT">
+					{#if filter.name}<span>{filter.name}</span>{/if}
+					<select name={filter.name} bind:value={filterState[filter.id]}>
+						{#each filter.options as option}
+							<option value={option.value}>{option.label}</option>
+						{/each}
+					</select>
+				</label>
+			{/each}
+			<div class="flexrow">
+				{#each (data.options.toggles || []) as filter}
+					<label class="flex-input border" data-tooltip={filter.description} data-tooltip-direction="UP">
+						{#if filter.name}<span>{filter.name}</span>{/if}
+						<input type="checkbox" name={filter.name} bind:checked={filterState[filter.id]}>
+					</label>
+				{/each}
+			</div>
 		</div>
 		<footer class="footer border">
 			Showing {finalActors.length} out of {actors.length} Actors
@@ -155,7 +154,7 @@
 
 							<button
 								aria-label="Preview"
-								onclick={(ev) => previewActor(ev, actor.uuid)}
+								onclick={ev => previewActor(ev, actor.uuid)}
 								class="btn-icon"
 							>
 								<FileUser />
@@ -255,7 +254,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-  		align-content: stretch;
+		align-content: stretch;
 
 		input {
 			width: fit-content;

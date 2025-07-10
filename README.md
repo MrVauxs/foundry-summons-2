@@ -1,4 +1,5 @@
 # Foundry Summons 2
+
 ![](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2FMrVauxs%2Ffoundry-summons-2%2Fmain%2Fmodule.json)
 ![All Downloads](https://img.shields.io/github/downloads/MrVauxs/foundry-summons-2/total?color=purple&label=All%20Downloads)
 ![Latest Version Downloads](https://img.shields.io/github/downloads/MrVauxs/foundry-summons-2/latest/total?color=purple&label=Latest%20Version%20Downloads&sort=semver)
@@ -10,13 +11,15 @@ Should work on any system. V12 and V13 compatible.
 ## Quickstart
 
 Create a macro with the following code to **open a summon menu**:
+
 ```js
-foundrySummons.SummonMenu.start()
+foundrySummons.SummonMenu.start();
 ```
 
 Create a macro with the following code to **start summoning a specific token**:
+
 ```js
-foundrySummons.pick({ uuid: "UUID of Compendium Actor" })
+foundrySummons.pick({ uuid: "UUID of Compendium Actor" });
 ```
 
 See the [wiki](https://github.com/MrVauxs/foundry-summons-2/wiki) for more advanced macros.
@@ -37,4 +40,5 @@ interface Window {
 - [pick](https://github.com/MrVauxs/foundry-summons-2/blob/main/src/module/SummonFunc/index.ts) is a function which takes in an uuid or actor document, and optionally actor update data, [Sequencer crosshair parameters, and callbacks](https://fantasycomputer.works/FoundryVTT-Sequencer/#/crosshair).
 
 ### SummonMenu Options
+
 Up to date type definitions (such as filters, packs, and other options) can be found [here](https://github.com/MrVauxs/foundry-summons-2/blob/main/src/module/SummonMenu/index.ts#L7).
