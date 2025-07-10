@@ -1,7 +1,7 @@
 import type { Settings } from "./module/settings.svelte";
 import type { pick } from "./module/SummonFunc";
 import type { SummonMenu } from "./module/SummonMenu";
-import type { systemConstants } from "./module/systemConstants";
+import type { systemConstants } from "./module/systemConstants.svelte";
 
 declare module "vite/types/customEvent.d.ts" {
 	interface CustomEventMap {

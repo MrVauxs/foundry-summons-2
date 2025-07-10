@@ -2,7 +2,7 @@
 import { settings } from "./module/settings.svelte";
 import { pick } from "./module/SummonFunc";
 import { SummonMenu } from "./module/SummonMenu";
-import { systemConstants } from "./module/systemConstants";
+import { systemConstants } from "./module/systemConstants.svelte";
 import "./styles/main.css";
 import "./app.css";
 import "./module/socket";
@@ -18,7 +18,7 @@ if (import.meta.hot) {
 	import.meta.hot.accept([
 		"./module/SummonFunc",
 		"./module/SummonMenu",
-		"./module/systemConstants",
+		"./module/systemConstants.svelte",
 	], async ([summonFunc, summonMenu, systemConstants]) => {
 		if (summonFunc?.pick) {
 			console.log("HMR pick function");

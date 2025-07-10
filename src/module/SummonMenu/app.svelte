@@ -5,6 +5,7 @@
 	import { FileUser } from "@lucide/svelte";
 	import VirtualList from "svelte-tiny-virtual-list";
 	import { pick } from "../SummonFunc";
+	import { systemConstants as CONSTANTS } from "../systemConstants.svelte";
 
 	const { data, foundryApp }: SummonMenuContext = $props();
 
@@ -12,7 +13,7 @@
 	let height = $state(0);
 
 	let actors: CompendiumIndexData[] = $state([]);
-	const systemConstants = window.foundrySummons.systemConstants[game.system.id];
+	const systemConstants = CONSTANTS[game.system.id];
 
 	const fields = Array.from(new Set([
 		...(data.options.dropdowns?.flatMap(x => x.indexedFields) || []),

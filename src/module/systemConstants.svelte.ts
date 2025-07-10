@@ -6,10 +6,10 @@ interface Content {
 	sort?: (a: CompendiumIndexData, b: CompendiumIndexData) => number;
 }
 
-export const systemConstants: Record<string, Content> = {
+export const systemConstants: Record<string, Content> = $state({
 	pf2e: {
 		indexedFields: ["system.details.level.value"],
 		filter: (actor: CompendiumIndexData) => actor.type === "npc",
 		sort: (a: CompendiumIndexData, b: CompendiumIndexData) => b.system.details.level.value - a.system.details.level.value,
 	},
-};
+});
