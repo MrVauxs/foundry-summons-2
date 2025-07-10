@@ -52,7 +52,7 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 	}
 
 	// @ts-expect-error Lack of tcal types
-	const summonedActor = await game.tcal.importTransientActor(actor.uuid, {}, updateData) as ActorPF2e;
+	const summonedActor = await game.tcal.importTransientActor(actor.uuid, { preferExisting: false }, updateData) as ActorPF2e;
 
 	const fullTemplate = canvas.scene!.templates.get(template._id!);
 	const offset = (canvas.scene?.grid.size ?? 200) / 2 * summonedActor.prototypeToken.height;
