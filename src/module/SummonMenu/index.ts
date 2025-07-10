@@ -45,7 +45,9 @@ interface summonOptions {
 		/** On hover tooltip description */
 		description?: string;
 		/** The .filter() function */
-		func: (actor: CompendiumIndexData, input: boolean) => boolean;
+		func?: (actor: CompendiumIndexData, input: boolean) => boolean;
+		/** The .toSorted() function */
+		sort?: (a: CompendiumIndexData, b: CompendiumIndexData, input: boolean) => number;
 		/**
 		 * What fields to index when pulling actors. Follows basic dot notation such as `system.details.level.value`.
 		 */
@@ -79,7 +81,9 @@ interface summonOptions {
 		/** On hover tooltip description */
 		description?: string;
 		/** The .filter() function */
-		func: (actor: CompendiumIndexData, input: boolean) => boolean;
+		func?: (actor: CompendiumIndexData, input: boolean) => boolean;
+		/** The .toSorted() function */
+		sort?: (a: CompendiumIndexData, b: CompendiumIndexData, input: boolean) => number;
 		/**
 		 * What fields to index when pulling actors. Follows basic dot notation such as `system.details.level.value`.
 		 */

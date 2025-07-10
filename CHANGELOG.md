@@ -1,7 +1,8 @@
 # 2.2.0
 
 - Changed setup image from generic template to the original Foundry Summons image.
-- Added `sort` to `systemConstants`
+- Added `sort` to `systemConstants`.
+- Added `sort` to dropdowns and toggles options.
 
 # 2.1.0
 

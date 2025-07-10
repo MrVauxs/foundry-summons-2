@@ -43,9 +43,9 @@
 	});
 
 	const filters = Array.from(new Set([
-		...(data.options.dropdowns?.map(x => ({ id: x.id, func: x.func })) || []),
-		...(data.options.toggles?.map(x => ({ id: x.id, func: x.func })) || []),
-		...(data.options.searches?.map(x => ({ id: x.id, func: x.func })) || []),
+		...(data.options.dropdowns?.map(x => ({ id: x.id, func: x.func, sort: x.sort })) || []),
+		...(data.options.toggles?.map(x => ({ id: x.id, func: x.func, sort: x.sort })) || []),
+		...(data.options.searches?.map(x => ({ id: x.id, func: x.func, sort: null })) || []),
 	]));
 
 	const filterState: Record<string, any> = $state({});
@@ -67,7 +67,9 @@
 		}
 
 		for (const filter of filters) {
-			TBFActors = TBFActors.filter(actor => filter.func(actor, filterState[filter.id] as never));
+			TBFActors = TBFActors
+				.filter(actor => filter.func ? filter.func(actor, filterState[filter.id]) : true)
+				.toSorted((a,b) => filter.sort ? filter.sort(a, b, filterState[filter.id]) : 0);
 		}
 
 		return TBFActors;
