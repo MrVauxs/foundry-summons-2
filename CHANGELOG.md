@@ -1,3 +1,7 @@
+# 2.2.1
+
+- Slightly better compatibility with PF2e Toolbelt's Template Helper.
+
 # 2.2.0
 
 - Changed setup image from generic template to the original Foundry Summons image.

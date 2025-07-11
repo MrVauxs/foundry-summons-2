@@ -46,7 +46,10 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 
 	if (!crosshair) throw console.error("Crosshair cancelled, exiting summoning.");
 
-	const [template] = await canvas.scene!.createEmbeddedDocuments("MeasuredTemplate", [crosshair]);
+	const [template] = await canvas.scene!.createEmbeddedDocuments(
+		"MeasuredTemplate",
+		[{ ...crosshair, flags: { "pf2e-toolbelt": { betterTemplate: { skip: true } } } }],
+	);
 
 	return await socket!.executeAsGM(
 		"summon",
