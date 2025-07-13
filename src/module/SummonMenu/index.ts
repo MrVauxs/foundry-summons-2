@@ -1,4 +1,5 @@
 import type { SvelteApplicationRenderContext } from "$lib/SvelteMixin.svelte";
+import type { TokenDocumentPF2e } from "foundry-pf2e";
 import type { ApplicationConfiguration } from "foundry-pf2e/foundry/client/applications/_types.mjs";
 import type { CompendiumIndexData } from "foundry-pf2e/foundry/client/documents/collections/compendium-collection.mjs";
 import { SvelteApplicationMixin } from "$lib/SvelteMixin.svelte";
@@ -95,6 +96,7 @@ interface summonOptions {
 
 export interface SummonMenuContext extends SvelteApplicationRenderContext {
 	data: SummonMenuState;
+	foundryApp: SummonMenu;
 }
 
 interface SummonMenuState {
@@ -114,11 +116,14 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 		},
 	};
 
-	static start(options: summonOptions) {
-		return new SummonMenu({ summonOptions: options }).render({ force: true });
+	static async start(options: summonOptions) {
+		return new SummonMenu({ summonOptions: options }).render({ force: true }).then(app => app.selection);
 	}
 
 	summonOptions: summonOptions;
+	private _selectionPromise: Promise<any> | null = null;
+	private _resolveSelectionPromise: ((value: TokenDocumentPF2e | string) => void) | null = null;
+	private _rejectSelectionPromise: ((reason?: any) => void) | null = null;
 
 	constructor(options: DeepPartial<ApplicationConfiguration> & { summonOptions?: summonOptions }) {
 		super(options);
@@ -134,6 +139,55 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 				options: this.summonOptions,
 			},
 		};
+	}
+
+	get selection(): Promise<any> {
+		if (!this._selectionPromise) {
+			this._selectionPromise = new Promise((resolve, reject) => {
+				this._resolveSelectionPromise = resolve;
+				this._rejectSelectionPromise = reject;
+			});
+		}
+		return this._selectionPromise;
+	}
+
+	private _resetSelection() {
+		this._selectionPromise = null;
+		this._resolveSelectionPromise = null;
+		this._rejectSelectionPromise = null;
+	}
+
+	protected override _onClose(options: fa.ApplicationClosingOptions): void;
+	protected override _onClose(options: fa.ApplicationClosingOptions): void {
+		super._onClose(options);
+		this._cancelSelection("Closed Summon menu.");
+	}
+
+	/**
+	 * Internal method to resolve the selection promise.
+	 * This would be called when the popup completes its interaction (e.g., user clicks OK).
+	 * @param value The value to resolve the promise with.
+	 */
+	_completeSelection(value: any) {
+		if (this._resolveSelectionPromise) {
+			this._resolveSelectionPromise(value);
+			this._resetSelection();
+		} else {
+			console.warn("No active selection promise to resolve.");
+		}
+	}
+
+	/**
+	 * Internal method to reject the selection promise (e.g., if the popup is closed without selection).
+	 * @param reason The reason for rejection.
+	 */
+	_cancelSelection(reason: any = "Selection cancelled") {
+		if (this._rejectSelectionPromise) {
+			this._rejectSelectionPromise(reason);
+			this._resetSelection();
+		} else {
+			console.warn("No active selection promise to reject.");
+		}
 	}
 
 	protected override root = Root;

@@ -1,3 +1,8 @@
+# 2.3.0
+
+- SummonMenu instances now have the selection getter which will asynchronously retrieve the selected TokenDocument.
+  - The `SummonMenu.start()` static function will automatically return with the above promise, instead of returning the application itself.
+
 # 2.2.1
 
 - Slightly better compatibility with PF2e Toolbelt's Template Helper.
