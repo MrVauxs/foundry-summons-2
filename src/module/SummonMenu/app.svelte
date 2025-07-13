@@ -76,22 +76,27 @@
 	});
 
 	async function startSummoning(uuid: string) {
-		try {
-			if (!(game.users.activeGM)) {
-				throw ui.notifications.warn("There is no active GM to accept this summon!");
-			}
-			foundryApp.minimize();
-
-			const token = await pick({
-				uuid,
-				updateData: { prototypeToken: { actorLink: data.options.actorLink },
-				...data.options.updateData
-			}});
-
-			if (token) foundryApp._completeSelection(token);
+		if (data.options.noSummon) {
+			foundryApp._completeSelection(uuid);
 			if (data.options.once) foundryApp.close();
-		} catch {
-			foundryApp.maximize();
+		} else{
+			try {
+				if (!(game.users.activeGM)) {
+					throw ui.notifications.warn("There is no active GM to accept this summon!");
+				}
+				foundryApp.minimize();
+
+				const token = await pick({
+					uuid,
+					updateData: { prototypeToken: { actorLink: data.options.actorLink },
+					...data.options.updateData
+				}});
+
+				if (token) foundryApp._completeSelection(token);
+				if (data.options.once) foundryApp.close();
+			} catch {
+				foundryApp.maximize();
+			}
 		}
 	}
 

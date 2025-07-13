@@ -1,5 +1,5 @@
 import type { Settings } from "./module/settings.svelte";
-import type { pick } from "./module/SummonFunc";
+import type { pick, summon } from "./module/SummonFunc";
 import type { SummonMenu } from "./module/SummonMenu";
 import type { systemConstants } from "./module/systemConstants.svelte";
 
@@ -18,6 +18,7 @@ declare global {
 		foundrySummons: {
 			SummonMenu: typeof SummonMenu;
 			pick: typeof pick;
+			summon: typeof summon;
 			settings: Settings;
 			systemConstants: typeof systemConstants;
 		};

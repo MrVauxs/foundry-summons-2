@@ -1,3 +1,7 @@
+# 2.3.1
+
+- Added the `noSummon` summonOption, changing the `selection` getter to just the UUID of the actor. Allowing for different handling than the default summoning workflow.
+
 # 2.3.0
 
 - SummonMenu instances now have the selection getter which will asynchronously retrieve the selected TokenDocument.

@@ -32,6 +32,12 @@ interface summonOptions {
 	updateData?: object;
 
 	/**
+	 * Determines whether selecting a creature in the menu results in a summoning workflow or immediately exits, returning the UUID string instead in its `selection` property.
+	 * @default false
+	 */
+	noSummon?: boolean;
+
+	/**
 	 * A default index filter that is applied no matter what.
 	 * @example [PF2e] (a) => actor.type === "npc"
 	 */
@@ -130,6 +136,7 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 		this.summonOptions = options?.summonOptions || {};
 		this.summonOptions.packs ??= game.packs.contents.filter(x => x.metadata.type === "Actor").map(x => x.metadata.id);
 		this.summonOptions.once ??= true;
+		this.summonOptions.noSummon ??= false;
 	}
 
 	protected override async _prepareContext(): Promise<SummonMenuContext> {
