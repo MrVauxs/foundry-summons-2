@@ -1,3 +1,7 @@
+# 2.3.2
+
+- Added the `default` optional property to filters, allowing you to preset what a given filter should start with.
+
 # 2.3.1
 
 - Added the `noSummon` summonOption, changing the `selection` getter to just the UUID of the actor. Allowing for different handling than the default summoning workflow.
