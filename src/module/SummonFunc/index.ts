@@ -19,7 +19,7 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 
 	if (!actor) throw ui.notifications.error("Could not find to be summoned actor!");
 	// @ts-expect-error Lack of tcal types
-	if (!game.tcal) throw ui.notifications.error("You do not have the Transient Compendium Actor Library installed!");
+	if (actor.compendium && !game.tcal) throw ui.notifications.error("You do not have the Transient Compendium Actor Library installed!");
 
 	const crosshair = await Sequencer.Crosshair.show(
 		{

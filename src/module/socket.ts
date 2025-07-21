@@ -25,7 +25,7 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 
 	if (!actor) throw ui.notifications.error("Could not find to be summoned actor!");
 	// @ts-expect-error Lack of tcal types
-	if (!game.tcal) throw ui.notifications.error("You do not have the Transient Compendium Actor Library installed!");
+	if (actor.compendium && !game.tcal) throw ui.notifications.error("You do not have the Transient Compendium Actor Library installed!");
 
 	const user = game.users.get(userId);
 	if (!user) throw ui.notifications.error("An unknown user tried to send a summoning request!");
@@ -51,8 +51,14 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 		if (!result) throw ui.notifications.info("Denied summon request!");
 	}
 
-	// @ts-expect-error Lack of tcal types
-	const summonedActor = await game.tcal.importTransientActor(actor.uuid, { preferExisting: false }, updateData) as ActorPF2e;
+	let summonedActor: ActorPF2e;
+	// @ts-expect-error Typing error, no idea why, ask laughingman
+	if (actor.compendium) {
+		// @ts-expect-error Lack of tcal types
+		summonedActor = await game.tcal.importTransientActor(actor.uuid, { preferExisting: false }, updateData) as ActorPF2e;
+	} else {
+		summonedActor = actor;
+	}
 
 	const fullTemplate = canvas.scene!.templates.get(template._id!);
 	const offset = (canvas.scene?.grid.size ?? 200) / 2 * summonedActor.prototypeToken.height;

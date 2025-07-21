@@ -1,3 +1,7 @@
+# 2.3.3
+
+- Added handling for non-compendium actors when using `pick()`. Summon your Eidolons to your hearts content.
+
 # 2.3.2
 
 - Added the `default` optional property to filters, allowing you to preset what a given filter should start with.
