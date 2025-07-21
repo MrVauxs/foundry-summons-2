@@ -51,6 +51,8 @@ interface summonOptions {
 		name: string;
 		/** On hover tooltip description */
 		description?: string;
+		/** The default value the filter should begin with */
+		default?: boolean;
 		/** The .filter() function */
 		func?: (actor: CompendiumIndexData, input: boolean) => boolean;
 		/** The .toSorted() function */
@@ -69,6 +71,8 @@ interface summonOptions {
 		name: string;
 		/** On hover tooltip description */
 		description?: string;
+		/** The default value the filter should begin with */
+		default?: string;
 		/** The .filter() function */
 		func: (actor: CompendiumIndexData, input: boolean) => boolean;
 		/**
@@ -87,6 +91,8 @@ interface summonOptions {
 		name: string;
 		/** On hover tooltip description */
 		description?: string;
+		/** The default value the filter should begin with */
+		default?: any;
 		/** The .filter() function */
 		func?: (actor: CompendiumIndexData, input: boolean) => boolean;
 		/** The .toSorted() function */

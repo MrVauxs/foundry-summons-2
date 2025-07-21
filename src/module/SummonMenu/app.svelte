@@ -43,15 +43,15 @@
 	});
 
 	const filters = Array.from(new Set([
-		...(data.options.dropdowns?.map(x => ({ id: x.id, func: x.func, sort: x.sort })) || []),
-		...(data.options.toggles?.map(x => ({ id: x.id, func: x.func, sort: x.sort })) || []),
-		...(data.options.searches?.map(x => ({ id: x.id, func: x.func, sort: null })) || []),
+		...(data.options.dropdowns?.map(x => ({ id: x.id, func: x.func, default: x.default, sort: x.sort })) || []),
+		...(data.options.toggles?.map(x => ({ id: x.id, func: x.func, default: x.default, sort: x.sort })) || []),
+		...(data.options.searches?.map(x => ({ id: x.id, func: x.func, default: x.default, sort: null })) || []),
 	]));
 
 	const filterState: Record<string, any> = $state({});
 
 	for (const filter of filters) {
-		filterState[filter.id] = undefined;
+		filterState[filter.id] = filter.default;
 	}
 
 	const finalActors = $derived.by(() => {
