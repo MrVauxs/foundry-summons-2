@@ -1,7 +1,7 @@
 # 2.4.0
 
 - Added `tokenData` and `drawPing` summonOptions.
-  - `tokenData` is the TokenDocument equivalent of `updateData`. It allows you to pass data that modifies the token created when summoningm, such as `name` or `alpha`.
+  - `tokenData` is the TokenDocument equivalent of `updateData`. It allows you to pass data that modifies the token created when summoning, such as `name` or `alpha`.
   - `drawPing` can be a boolean to toggle the default ping, or an object to customize the ping drawn when summoning. Default is true.
 
 # 2.3.3
