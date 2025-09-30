@@ -27,9 +27,20 @@ interface summonOptions {
 	actorLink?: boolean;
 
 	/**
-	 * Modification data to Pass when an actor is created. Same as .update().
+	 * Modification data used when an actor is created. Same as .update().
 	 */
 	updateData?: object;
+
+	/**
+	 * Modification data to pass when a token is created. As per .getTokenDocument().
+	 */
+	tokenData?: object;
+
+	/**
+	 * A boolean whether to ping the location of the summon after summoning, or object to customize the ping.
+	 * @default true
+	 */
+	drawPing?: boolean | object;
 
 	/**
 	 * Determines whether selecting a creature in the menu results in a summoning workflow or immediately exits, returning the UUID string instead in its `selection` property.

@@ -15,10 +15,12 @@ interface argument {
 	uuid: string;
 	template: MeasuredTemplateDocument<Scene>["_source"];
 	updateData?: object;
+	tokenData?: object;
+	drawPing?: boolean;
 	userId: string;
 }
 
-async function handleEvent({ uuid, template, updateData, userId }: argument) {
+async function handleEvent({ uuid, template, updateData, userId, drawPing, tokenData }: argument) {
 	if (game.user !== game.users.activeGM) return;
 
 	const actor: ActorPF2e | null = await fromUuid(uuid);
@@ -30,14 +32,18 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 	const user = game.users.get(userId);
 	if (!user) throw ui.notifications.error("An unknown user tried to send a summoning request!");
 
-	canvas.controls.drawPing(
-		template,
-		{
-			style: CONFIG.Canvas.pings.types.PULSE,
-			size: canvas.grid.size * actor.prototypeToken.height,
-			duration: 10 * 1000,
-		},
-	);
+	if (drawPing !== false) {
+		canvas.controls.drawPing(
+			template,
+			typeof drawPing === "object"
+				? drawPing
+				: {
+						style: CONFIG.Canvas.pings.types.PULSE,
+						size: canvas.grid.size * actor.prototypeToken.height,
+						duration: 10 * 1000,
+					},
+		);
+	}
 
 	if (user.role < settings.permission) {
 		const result = await foundry.applications.api.DialogV2.confirm({
@@ -62,12 +68,13 @@ async function handleEvent({ uuid, template, updateData, userId }: argument) {
 
 	const fullTemplate = canvas.scene!.templates.get(template._id!);
 	const offset = (canvas.scene?.grid.size ?? 200) / 2 * summonedActor.prototypeToken.height;
-	const tokenData = await summonedActor.getTokenDocument({
+	const tokenDocData = await summonedActor.getTokenDocument({
 		x: Math.ceil((fullTemplate?.x || template.x) - offset),
 		y: Math.ceil((fullTemplate?.y || template.y) - offset),
+		...tokenData,
 	});
 
-	const [created] = await canvas.scene!.createEmbeddedDocuments("Token", [tokenData.toObject()]);
+	const [created] = await canvas.scene!.createEmbeddedDocuments("Token", [tokenDocData.toObject()]);
 	canvas.scene!.templates.get(template._id!)?.delete();
 	return created;
 }

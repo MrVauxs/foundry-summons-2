@@ -89,7 +89,9 @@
 				const token = await pick({
 					uuid,
 					updateData: { prototypeToken: { actorLink: data.options.actorLink },
-					...data.options.updateData
+					...data.options.updateData,
+					tokenData: data.options.tokenData,
+					drawPing: data.options.drawPing
 				}});
 
 				if (token) foundryApp._completeSelection(token);
