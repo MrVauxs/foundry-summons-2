@@ -21,7 +21,7 @@ interface argument {
 }
 
 async function handleEvent({ uuid, template, updateData, userId, drawPing, tokenData }: argument) {
-	if (game.user !== game.users.activeGM) return;
+	if (game.user !== game.users.activeGM) return console.warn("Foundry Summons | Received summon request while not activeGM, aborting.");
 
 	const actor: ActorPF2e | null = await fromUuid(uuid);
 
