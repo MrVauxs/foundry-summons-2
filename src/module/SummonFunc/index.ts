@@ -54,7 +54,7 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 		[{ ...crosshair, flags: { "pf2e-toolbelt": { betterTemplate: { skip: true } } } }],
 	);
 
-	return await socket!.executeAsGM(
+	return await socket!.executeForAllGMs(
 		"summon",
 		{
 			uuid: actor.uuid,
