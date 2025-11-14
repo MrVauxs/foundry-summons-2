@@ -1,3 +1,8 @@
+# 2.4.1
+- Fixed possible discrepancy on which GM accepts summon requests between Foundry Summons and socketlib (#9)
+  - This does not make it possible for more than one GM to control summoning requests.
+- Added logs for when a GM has been denied to handle a summon request (usually in favor of another active GM).
+
 # 2.4.0
 
 - Added `tokenData` and `drawPing` summonOptions.
