@@ -1,4 +1,5 @@
 import type { ActorPF2e, TokenDocumentPF2e } from "foundry-pf2e";
+import { settings } from "../settings.svelte";
 import { socket } from "../socket";
 
 interface SummonParams {
@@ -54,8 +55,27 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 		[{ ...crosshair, flags: { "pf2e-toolbelt": { betterTemplate: { skip: true } } } }],
 	);
 
-	return await socket!.executeForAllGMs(
+	if (!game.users.activeGM) throw ui.notifications.error("Foundry Summons | There is no GM to send a summoning request to!");
+
+	let GMID = game.users.activeGM!.id;
+	const GMs = game.users.contents.filter(x => x.isGM);
+
+	if (GMs.length > 1 && settings.chooseGM) {
+		const method = await foundry.applications.api.DialogV2.wait({
+			// @ts-expect-error Wrong Types
+			window: { title: "Foundry Summons", resizable: true },
+			content: "<p>Which GM to send the summoning request to?</p>",
+			// This example does not use i18n strings for the button labels,
+			// but they are automatically localized.
+			buttons: GMs.map(x => ({ label: x.name, action: x.id })),
+		});
+
+		if (method) GMID = method as string;
+	}
+
+	return await socket!.executeAsUser(
 		"summon",
+		GMID,
 		{
 			uuid: actor.uuid,
 			template: template.toJSON(),

@@ -4,11 +4,13 @@ import { id } from "moduleJSON";
 export interface Settings {
 	permission: number;
 	seeActors: boolean;
+	chooseGM: boolean;
 }
 
 const settings: Settings = $state({
 	permission: 2,
 	seeActors: false,
+	chooseGM: false,
 });
 
 const setData: (SettingRegistration & { key: string })[] = [
@@ -37,6 +39,16 @@ const setData: (SettingRegistration & { key: string })[] = [
 		default: false,
 		type: Boolean,
 		onChange: (choice: any) => { settings.seeActors = choice; },
+	},
+	{
+		key: "chooseGM",
+		name: "Choose Summoning GM",
+		hint: "Whether you want to be able to pick which GM accepts your summoning requests. The choice appears only when multiple GMs are present.",
+		config: true,
+		scope: "user",
+		default: false,
+		type: Boolean,
+		onChange: (choice: any) => { settings.chooseGM = choice; },
 	},
 ];
 

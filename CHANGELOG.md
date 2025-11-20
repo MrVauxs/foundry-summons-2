@@ -1,3 +1,9 @@
+# 2.5.0
+- Created a new user setting that allows players to choose a GM in an event there are multiple present.
+  - The setting default is false, relying on whoever is the "active" GM as a default.
+  - If enabled, the choice is made with every summoning request.
+- Fixed a bug with `pick()` not returning the token document.
+
 # 2.4.1
 - Fixed possible discrepancy on which GM accepts summon requests between Foundry Summons and socketlib (#9)
   - This does not make it possible for more than one GM to control summoning requests.
