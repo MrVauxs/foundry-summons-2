@@ -1,3 +1,6 @@
+# 2.5.1
+- Fixed the module warning that updateData will not affect non-compendium actors when using compendium actors.
+
 # 2.5.0
 - Created a new user setting that allows players to choose a GM in an event there are multiple present.
   - The setting default is false, relying on whoever is the "active" GM as a default.
