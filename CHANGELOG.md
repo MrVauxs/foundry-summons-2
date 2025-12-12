@@ -1,3 +1,7 @@
+# 2.5.2
+- Made the list element component send console errors to the console when it says to check them.
+- Made the level column only appear in the PF2e system.
+
 # 2.5.1
 - Fixed the module warning that updateData will not affect non-compendium actors when using compendium actors.
 
