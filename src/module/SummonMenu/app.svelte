@@ -164,7 +164,7 @@
 						onclick={() => startSummoning(actor.uuid)}
 						class="option border hover"
 					>
-						<svelte:boundary>
+						<svelte:boundary onerror={console.error}>
 							{#snippet failed()}
 								Errored on {actor?.name ?? "???"}. See the console for details.
 							{/snippet}
@@ -177,13 +177,15 @@
 								<FileUser />
 							</button>
 							<div>{actor.name}</div>
-							<div class="level">
-								<span>L</span>
-								{#if String(actor.system?.details?.level.value).length === 1}
-									<span style:opacity="10%">0</span>
-								{/if}
-								<span>{actor.system?.details?.level.value}</span>
-							</div>
+							{#if window.game.system.id === "pf2e"}
+								<div class="level">
+									<span>L</span>
+									{#if String(actor.system?.details?.level.value).length === 1}
+										<span style:opacity="10%">0</span>
+									{/if}
+									<span>{actor.system?.details?.level.value}</span>
+								</div>
+							{/if}
 						</svelte:boundary>
 					</div>
 				</div>
