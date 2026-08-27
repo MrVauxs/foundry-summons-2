@@ -1,4 +1,4 @@
-# Unreleased
+# 2.6.0
 - Added a `rotation` option to `pick()` and `SummonMenu.start()` to pass the crosshair's rotation to the summoned token.
 - Added an `actors` option to `SummonMenu.start()` to list individual non-compendium actors (e.g. Eidolons, companions) alongside compendium entries. Accepts an array of Actor UUIDs.
 - Fixed the toggle checkboxes in the sidebar shifting position when checked/unchecked.
