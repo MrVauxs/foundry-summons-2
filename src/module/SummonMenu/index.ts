@@ -9,8 +9,17 @@ interface summonOptions {
 	/**
 	 * Which compendium packs to draw sources from.
 	 * @example ["pf2e.pathfinder-npc-core"]
+	 * @default game.packs.contents.filter(x => x.metadata.type === "Actor").map(x => x.metadata.id)
 	 */
 	packs?: string[];
+
+	/**
+	 * Additional individual actors to draw sources from, outside of compendiums.
+	 * Useful for world actors that aren't in a compendium, such as pre-built Eidolons,
+	 * companions, or other customized creatures. Accepts any Actor UUID (world, token, etc).
+	 * @example ["Actor.abc123", "Scene.xyz.Token.def456.Actor.ghi789"]
+	 */
+	actors?: string[];
 
 	/**
 	 * Close the menu once summoning begins.
@@ -158,6 +167,7 @@ export class SummonMenu extends SvelteApplicationMixin(foundry.applications.api.
 		super(options);
 		this.summonOptions = options?.summonOptions || {};
 		this.summonOptions.packs ??= game.packs.contents.filter(x => x.metadata.type === "Actor").map(x => x.metadata.id);
+		this.summonOptions.actors ??= [];
 		this.summonOptions.once ??= true;
 		this.summonOptions.noSummon ??= false;
 	}

@@ -24,16 +24,29 @@
 
 	$effect(() => {
 		const loadActors = async () => {
-			const promises = data.options.packs!.map(pack =>
+			const indexPromises = data.options.packs!.map(pack =>
 				game.packs.get(pack)?.getIndex({ fields: ["img", ...fields] }),
 			);
 
+			const directPromises = (data.options.actors || []).map(uuid => fromUuid<ActorPF2e>(uuid));
+
 			try {
-				const indices = await Promise.all(promises);
-				actors = indices
-					.flatMap(index => index?.contents || [])
-					// The filter is here to not have finalActors and actors always mismatched in numbers, since the system filters should be always applied.
-					.filter(systemConstants?.filter ? systemConstants.filter : () => true);
+				const [indices, directActors] = await Promise.all([
+					Promise.all(indexPromises),
+					Promise.all(directPromises),
+				]);
+
+				const missing = data.options.actors!.filter((_, i) => !directActors[i]);
+				for (const uuid of missing) console.warn(`Foundry Summons | Could not find actor "${uuid}", skipping.`);
+
+				actors = [
+					...indices
+						.flatMap(index => index?.contents || [])
+						// The filter is here to not have finalActors and actors always mismatched in numbers, since the system filters should be always applied.
+						.filter(systemConstants?.filter ? systemConstants.filter : () => true),
+					// Explicitly added actors bypass system filters (e.g. PCs).
+					...directActors.filter(x => x !== null) as unknown as CompendiumIndexData[],
+				];
 			} catch (err) {
 				console.error(err);
 			}
@@ -293,7 +306,6 @@
 		align-items: center;
 
 		width: 100%;
-		padding: 0.25rem;
 
 		& .level {
 			margin-left: auto;
