@@ -293,9 +293,11 @@
 
 		input {
 			width: fit-content;
-			&::before {
-				display: inline-block;
-				width: 1.5rem;
+			&::before,
+			&::after {
+				display: flex;
+				width: 1.4rem;
+				justify-content: center;
 			}
 			margin-left: auto;
 		}
