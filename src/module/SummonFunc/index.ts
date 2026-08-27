@@ -7,7 +7,8 @@ interface SummonParams {
 	crosshairCallbacks?: Parameters<typeof Sequencer.Crosshair.show>[1];
 	updateData?: object;
 	tokenData?: object;
-	drawPing?: boolean;
+	drawPing?: boolean | object;
+	rotation?: boolean;
 }
 
 type PredicateParams = { uuid: string } | { actor: ActorPF2e };
@@ -23,7 +24,13 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 	if (!actor) throw ui.notifications.error("Could not find to be summoned actor!");
 	// @ts-expect-error Lack of tcal types
 	if (actor.compendium && !game.tcal) throw ui.notifications.error("You do not have the Transient Compendium Actor Library installed!");
-	if (!actor.compendium && params.updateData) ui.notifications.warn("Warning! <code>updateData</code> will not affect non-compendium actors!");
+	if (
+		// @ts-expect-error compendium and inCompendium both exist.
+		!(actor.compendium || actor.inCompendium)
+		&& params.updateData
+	) {
+		ui.notifications.warn("Warning! <code>updateData</code> will not affect non-compendium actors!");
+	}
 
 	const crosshair = await Sequencer.Crosshair.show(
 		{
@@ -85,6 +92,7 @@ async function pick(params: SummonParams & PredicateParams): Promise<TokenDocume
 			},
 			tokenData: params.tokenData,
 			drawPing: params.drawPing ?? true,
+			rotation: params.rotation ?? false,
 			userId: game.userId,
 		},
 	);

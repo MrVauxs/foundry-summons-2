@@ -43,6 +43,12 @@ interface summonOptions {
 	drawPing?: boolean | object;
 
 	/**
+	 * Whether to rotate the summoned token to match the crosshair's rotation.
+	 * @default false
+	 */
+	rotation?: boolean;
+
+	/**
 	 * Determines whether selecting a creature in the menu results in a summoning workflow or immediately exits, returning the UUID string instead in its `selection` property.
 	 * @default false
 	 */

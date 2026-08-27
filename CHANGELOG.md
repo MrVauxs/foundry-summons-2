@@ -1,3 +1,6 @@
+# Unreleased
+- Added a `rotation` option to `pick()` and `SummonMenu.start()` to pass the crosshair's rotation to the summoned token.
+
 # 2.5.2
 - Made the list element component send console errors to the console when it says to check them.
 - Made the level column only appear in the PF2e system.

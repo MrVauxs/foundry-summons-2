@@ -16,11 +16,12 @@ interface argument {
 	template: MeasuredTemplateDocument<Scene>["_source"];
 	updateData?: object;
 	tokenData?: object;
-	drawPing?: boolean;
+	drawPing?: boolean | object;
+	rotation?: boolean;
 	userId: string;
 }
 
-async function handleEvent({ uuid, template, updateData, userId, drawPing, tokenData }: argument) {
+async function handleEvent({ uuid, template, updateData, userId, drawPing, tokenData, rotation }: argument) {
 	if (game.user !== game.users.activeGM) return console.warn("Foundry Summons | Received summon request while not activeGM, aborting.");
 
 	const actor: ActorPF2e | null = await fromUuid(uuid);
@@ -71,6 +72,9 @@ async function handleEvent({ uuid, template, updateData, userId, drawPing, token
 	const tokenDocData = await summonedActor.getTokenDocument({
 		x: Math.ceil((fullTemplate?.x || template.x) - offset),
 		y: Math.ceil((fullTemplate?.y || template.y) - offset),
+		...(rotation
+			? { rotation: fullTemplate?.direction ?? template.direction }
+			: {}),
 		...tokenData,
 	});
 

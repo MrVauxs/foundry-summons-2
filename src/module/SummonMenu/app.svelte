@@ -69,7 +69,7 @@
 		for (const filter of filters) {
 			TBFActors = TBFActors
 				.filter(actor => filter.func ? filter.func(actor, filterState[filter.id]) : true)
-				.toSorted((a,b) => filter.sort ? filter.sort(a, b, filterState[filter.id]) : 0);
+				.toSorted((a, b) => filter.sort ? filter.sort(a, b, filterState[filter.id]) : 0);
 		}
 
 		return TBFActors;
@@ -79,7 +79,7 @@
 		if (data.options.noSummon) {
 			foundryApp._completeSelection(uuid);
 			if (data.options.once) foundryApp.close();
-		} else{
+		} else {
 			try {
 				if (!(game.users.activeGM)) {
 					throw ui.notifications.warn("There is no active GM to accept this summon!");
@@ -88,11 +88,14 @@
 
 				const token = await pick({
 					uuid,
-					updateData: { prototypeToken: { actorLink: data.options.actorLink },
-					...data.options.updateData,
+					updateData: {
+						prototypeToken: { actorLink: data.options.actorLink },
+						...data.options.updateData,
+					},
 					tokenData: data.options.tokenData,
-					drawPing: data.options.drawPing
-				}});
+					drawPing: data.options.drawPing,
+					rotation: data.options.rotation,
+				});
 
 				if (token) foundryApp._completeSelection(token);
 				if (data.options.once) foundryApp.close();
