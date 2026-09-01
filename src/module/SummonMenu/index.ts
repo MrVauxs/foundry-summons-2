@@ -65,6 +65,11 @@ interface summonOptions {
 
 	/**
 	 * A default index filter that is applied no matter what.
+	 * 
+	 * Note! This uses the CompendiumIndexData and not the full actor, 
+	 * meaning it doesn't load the whole actor document with all of its 
+	 * properties. Only indexed properties are available.
+	 * 
 	 * @example [PF2e] (a) => actor.type === "npc"
 	 */
 	filter?: (actor: CompendiumIndexData) => boolean;
